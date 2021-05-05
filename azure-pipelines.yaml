@@ -1,7 +1,9 @@
 name: Azure Pipelines
 variables:
-  python.version: '3.7.6'
-group:
+- group: Quality_Release_SSH_Info
+- name: python.version
+  value: '3.7.6'
+
   
 stages:
 - stage: Build
@@ -11,11 +13,14 @@ stages:
       name: Hosted Ubuntu 1604
     steps:
     # Needed for Terraform VM deployment
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-    #     sshPublicKey: 'PUBLIC_KEY'
-    #     sshKeySecureFile: 'id_rsa'
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: '$KNOWN_HOSTS_STRING'
+        sshPublicKey: '$PUBLIC_KEY'
+        sshKeySecureFile: 'tfkey'
+      env:
+        KNOWN_HOSTS_STRING: $(aps-known-host)
+        PUBLIC_KEY        : $(aps-tf-public-key)
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
