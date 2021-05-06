@@ -1,6 +1,10 @@
 name: Azure Pipelines
 variables:
-  python.version: '3.7.6'
+- group: Quality_Release_SSH_Info
+- name: python.version
+  value: '3.7.6'
+
+  
 stages:
 - stage: Build
   jobs:
@@ -9,11 +13,14 @@ stages:
       name: Hosted Ubuntu 1604
     steps:
     # Needed for Terraform VM deployment
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-    #     sshPublicKey: 'PUBLIC_KEY'
-    #     sshKeySecureFile: 'id_rsa'
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: '$KNOWN_HOSTS_STRING'
+        sshPublicKey: '$PUBLIC_KEY'
+        sshKeySecureFile: 'tfkey'
+      env:
+        KNOWN_HOSTS_STRING: $(aps-known-host)
+        PUBLIC_KEY        : $(aps-tf-public-key)
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -41,27 +48,37 @@ stages:
               appName: ''
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-  # - deployment: VMDeploy
-  #   displayName: NAME
-  #   environment:
-  #     name:  ENVIRONMENT NAME
-  #     resourceType: VirtualMachine
-  #     tags: TAG NAME
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - task: Bash@3
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               #! /bin/bash
-                
-  #               sudo apt-get upgrade -y
-  #               sudo apt-get install python3-pip -y
-  #               sudo apt-get install unzip -y
-  #               sudo apt-get install -y chromium-browser
-  #               pip3 install selenium
-  #               export PATH=$PATH:some/path
+  - deployment: VMDeploy
+    displayName: InstallSelenium
+    environment:
+        name:  ENVIRONMENT NAME
+        resourceType: VirtualMachine
+        tags: "TAG NAME"
+    strategy:
+        runOnce:
+          deploy:
+           steps:
+           - task: Bash@3
+             inputs:
+               targetType: 'inline'
+               script: |
+                  #! /bin/bash
+            
+                  sudo apt-get upgrade -y
+                  sudo apt-get install python3-pip -y
+                  sudo apt-get install unzip -y
+                  sudo apt-get install -y chromium-browser
+                  pip3 install selenium
+                  a=$(uname -m)
+                  rm -r /tmp/chromedriver/
+                  mkdir /tmp/chromedriver/
+                  wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                  if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                  latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                  wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                  sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
+                  sudo chown root:root /usr/local/bin/chromedriver
+                  sudo chmod 0755 /usr/local/bin/chromedriver
+                  export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
 
 
