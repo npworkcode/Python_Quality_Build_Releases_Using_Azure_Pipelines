@@ -81,5 +81,7 @@ stages:
                   sudo chown root:root /usr/local/bin/chromedriver
                   sudo chmod 0755 /usr/local/bin/chromedriver
                   export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
-
+                  mkdir ~/scripts
+                  cp $(Agent.BuildDirectory)/login.py ~/scripts
+                  python3 ~/scripts/login.py
 
