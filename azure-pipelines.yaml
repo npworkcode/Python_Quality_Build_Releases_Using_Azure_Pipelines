@@ -1,4 +1,5 @@
 name: Azure Pipelines
+
 variables:
 - group: Quality_Release_SSH_Info
 - name: python.version
