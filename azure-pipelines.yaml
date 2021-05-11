@@ -49,8 +49,8 @@ stages:
               appName: ''
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-  - deployment: VMDeploy
-    displayName: InstallSelenium
+  - deployment: InstallSelenium
+    displayName: 'Install Selenium on Deployed VM'
     environment:
         name:  ENVIRONMENT NAME
         resourceType: VirtualMachine
@@ -82,7 +82,25 @@ stages:
                   sudo chown root:root /usr/local/bin/chromedriver
                   sudo chmod 0755 /usr/local/bin/chromedriver
                   export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
+
+
+  - deployment: RunSeleniumQA
+    displayName: 'Run Selenium QA Tests'
+    environment:
+        name:  ENVIRONMENT NAME
+        resourceType: VirtualMachine
+        tags: "TAG NAME"
+    strategy:
+        runOnce:
+          deploy:
+           steps:
+           - task: Bash@3
+             inputs:
+               targetType: 'inline'
+               script: |
+                  #! /bin/bash
                   mkdir ~/scripts
                   cp $(Agent.BuildDirectory)/login.py ~/scripts
                   python3 ~/scripts/login.py
+
 
