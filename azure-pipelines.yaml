@@ -103,4 +103,13 @@ stages:
                   cp $(Agent.BuildDirectory)/login.py ~/scripts
                   python3 ~/scripts/login.py
 
-
+- stage: Test
+  variables:
+  - name: POSTMANSRCDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/postman
+  - name: POSTMANREPORTDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/postman/report
+  jobs:
+  - job: PerformQATests
+    steps:
+      
