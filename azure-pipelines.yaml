@@ -9,13 +9,19 @@ variables:
 
   
 stages:
+
 - stage: Build
+
   jobs:
+
   - job: Build
+
     pool:
       name: Hosted Ubuntu 1604
+
     steps:
     # Needed for Terraform VM deployment
+
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: '$KNOWN_HOSTS_STRING'
@@ -24,6 +30,7 @@ stages:
       env:
         KNOWN_HOSTS_STRING: $(aps-known-host)
         PUBLIC_KEY        : $(aps-tf-public-key)
+
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -34,11 +41,16 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-- stage:
+
+
+- stage: Deploy
+
   jobs:
   - deployment: FakeRestAPI
+
     pool:
       vmImage: 'Ubuntu-16.04'
+    
     environment: 'TEST'
     strategy:
       runOnce:
@@ -51,6 +63,8 @@ stages:
               appName: ''
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
+
   - deployment: InstallSelenium
     displayName: 'Install Selenium on Deployed VM'
     environment:
@@ -119,7 +133,9 @@ stages:
     value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress
   - name: JMSTRESSTESTREPORTDIR
     value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress/report
+
   jobs:
+
   - job: PerformQATests
     steps:
 
@@ -231,6 +247,6 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '$JMSTRESSTESTREPORTDIR/endurance.xml'
+        testResultsFiles: '$JMSTRESSTESTREPORTDIR/stress.xml'
         searchFolder: '$JMSTRESSTESTREPORTDIR'
         testRunTitle: 'JMeter Stress Tests of FAKE API'
