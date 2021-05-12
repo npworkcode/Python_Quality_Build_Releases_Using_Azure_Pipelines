@@ -112,4 +112,23 @@ stages:
   jobs:
   - job: PerformQATests
     steps:
-      
+    - task: CmdLine@2
+      displayName: "Install Newman Runner & HTML Reporter"
+      inputs:
+        script: |
+          sudo npm install -g newman 
+          sudo npm install -g newman-reporter-html
+          sudo npm install -g newman-reporter-htmlextra
+        workingDirectory: $(System.DefaultWorkingDirectory)
+    - task: CmdLine@2
+      displayName: "Run Data Validation Tests"
+      continueOnError: true
+      inputs:
+        script: |
+          'newman run $POSTMANSRCDIR\Regression_Tests_Fake_API.json  \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
+            --reporters cli,html,htmlextra,junit  \
+            --reporter-html-export $POSTMANREPORTDIR/html/regressionhtmltests.html \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml \
+            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
