@@ -1,5 +1,7 @@
 name: Azure Pipelines
 
+trigger: none
+
 variables:
 - group: Quality_Release_SSH_Info
 - name: python.version
@@ -109,9 +111,24 @@ stages:
     value: $(Agent.BuildDirectory)/automatedtesting/postman
   - name: POSTMANREPORTDIR
     value: $(Agent.BuildDirectory)/automatedtesting/postman/report
+  - name: JMENDURETESTDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance
+  - name: JMENDURETESTREPORTDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance/report
+  - name: JMESTRESSTESTDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress
+  - name: JMSTRESSTESTREPORTDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress/report
   jobs:
   - job: PerformQATests
     steps:
+
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.7.6'
+        addToPath: true
+        architecture: 'x64'
+
     - task: CmdLine@2
       displayName: "Install Newman Runner & HTML Reporter"
       inputs:
@@ -125,10 +142,95 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman run $POSTMANSRCDIR\Regression_Tests_Fake_API.json  \
+          newman run $POSTMANSRCDIR\Data_Validation_Tests_Fake_API.json  \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
+            --reporters cli,html,htmlextra,junit  \
+            --reporter-html-export $POSTMANREPORTDIR/html/datavalidationhtmltests.html \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml \
+            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/datavalidationhtmlextratests.html
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$POSTMANREPORTDIR/junit/datavalidationjunittests.xml'
+        searchFolder: '$POSTMANREPORTDIR/junit'
+        testRunTitle: 'Data Validation Tests of FAKE API'
+
+    - task: CmdLine@2
+      displayName: "Run Regression Tests"
+      continueOnError: true
+      inputs:
+        script: |
+          newman run $POSTMANSRCDIR\Regression_Tests_Fake_API.json  \
             -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
             --reporters cli,html,htmlextra,junit  \
             --reporter-html-export $POSTMANREPORTDIR/html/regressionhtmltests.html \
             --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml \
-            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html'
+            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html
         workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$POSTMANREPORTDIR/junit/regressionjunittests.xml'
+        searchFolder: '$POSTMANREPORTDIR/junit'
+        testRunTitle: 'Data Validation Tests of FAKE API'
+
+
+    - task: JMeterInstaller@0
+      inputs:
+        jmeterVersion: '5.4.1'
+
+
+    - task: TaurusInstaller@0
+      inputs:
+        taurusVersion: '1.15.2'
+        pythonCommand: 'python3'
+
+
+    - task: TaurusRunner@0
+      inputs:
+        taurusConfig: |
+          execution:
+          - scenario:
+                script: $JMENDURETESTDIR/Project_3-Endurance-Test_Plan.jmx
+          
+          reporting:
+          - module: junit-xml
+            filename: $JMENDURETESTREPORTDIR/endurance.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: $JMENDURETESTREPORTDIR'
+
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$JMENDURETESTREPORTDIR/endurance.xml'
+        searchFolder: '$JMENDURETESTREPORTDIR'
+        testRunTitle: 'JMeter Endurance Tests of FAKE API'
+    - task: TaurusRunner@0
+      inputs:
+        taurusConfig: |
+          execution:
+          - scenario:
+                script: $JMESTRESSTESTDIR/Project_3-Stress-Test_Plan.jmx
+          
+          reporting:
+          - module: junit-xml
+            filename: $JMSTRESSTESTREPORTDIR/stress.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: $JMSTRESSTESTREPORTDIR'
+
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$JMSTRESSTESTREPORTDIR/endurance.xml'
+        searchFolder: '$JMSTRESSTESTREPORTDIR'
+        testRunTitle: 'JMeter Stress Tests of FAKE API'
