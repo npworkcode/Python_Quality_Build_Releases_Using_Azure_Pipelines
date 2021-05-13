@@ -116,7 +116,7 @@ stages:
                script: |
                   #! /bin/bash
                   mkdir ~/scripts
-                  cp $(Agent.BuildDirectory)/automatedtesting/selenium/login.py ~/scripts
+                  cp $(Agent.BuildDirectory)/login.py ~/scripts
                   python3 ~/scripts/login.py
 
 - stage: Test
