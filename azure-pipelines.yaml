@@ -53,7 +53,7 @@ stages:
     pool:
       vmImage: 'Ubuntu-16.04'
     
-    environment: 'TEST'
+    environment: 'UbuntuVM'
     strategy:
       runOnce:
         deploy:
@@ -70,9 +70,8 @@ stages:
   - deployment: InstallSelenium
     displayName: 'Install Selenium on Deployed VM'
     environment:
-        name:  ENVIRONMENT NAME
+        name:  UbuntuVM
         resourceType: VirtualMachine
-        tags: "TAG NAME"
     strategy:
         runOnce:
           deploy:
@@ -105,9 +104,8 @@ stages:
   - deployment: RunSeleniumQA
     displayName: 'Run Selenium QA Tests'
     environment:
-        name:  ENVIRONMENT NAME
+        name:  UbuntuVM
         resourceType: VirtualMachine
-        tags: "TAG NAME"
     strategy:
         runOnce:
           deploy:
