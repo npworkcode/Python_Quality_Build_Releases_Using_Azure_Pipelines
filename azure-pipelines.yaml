@@ -143,7 +143,7 @@ stages:
   - job: PerformQATests
 
     pool:
-      vmImage: 'Ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
 
 
     steps:
@@ -155,7 +155,7 @@ stages:
         architecture: 'x64'
 
     - task: CmdLine@2
-      displayName: "Install Newman Runner & HTML Reporter"
+      displayName: "Install Newman Runner, HTML & HTMLExtra Reporter"
       inputs:
         script: |
           sudo npm install -g newman 
@@ -163,7 +163,7 @@ stages:
           sudo npm install -g newman-reporter-htmlextra
         workingDirectory: $(System.DefaultWorkingDirectory)
     - task: CmdLine@2
-      displayName: "Run Data Validation Tests"
+      displayName: "Run Postman Data Validation Tests"
       continueOnError: true
       inputs:
         script: |
@@ -176,6 +176,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)'
 
     - task: PublishTestResults@2
+      displayName: "Publish Postman Data Validation Test Results"
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '$POSTMANREPORTDIR/junit/datavalidationjunittests.xml'
@@ -183,7 +184,7 @@ stages:
         testRunTitle: 'Data Validation Tests of FAKE API'
 
     - task: CmdLine@2
-      displayName: "Run Regression Tests"
+      displayName: "Run Postman Regression Tests"
       continueOnError: true
       inputs:
         script: |
@@ -197,6 +198,7 @@ stages:
 
 
     - task: PublishTestResults@2
+      displayName: "Publish Postman Regression Test Results"
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '$POSTMANREPORTDIR/junit/regressionjunittests.xml'
@@ -205,17 +207,20 @@ stages:
 
 
     - task: JMeterInstaller@0
+      displayName: "Install JMeter"
       inputs:
         jmeterVersion: '5.4.1'
 
 
     - task: TaurusInstaller@0
+      displayName: "Install Taurus Tool Runner"
       inputs:
         taurusVersion: '1.15.2'
         pythonCommand: 'python3'
 
 
     - task: TaurusRunner@0
+      displayName: "Run JMeter Endurance Tests with Taurus"
       inputs:
         taurusConfig: |
           modules:
@@ -235,12 +240,14 @@ stages:
 
 
     - task: PublishTestResults@2
+      displayName: "Publish JMeter Endurance Test Results"
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '$JMENDURETESTREPORTDIR/endurance.xml'
         searchFolder: '$JMENDURETESTREPORTDIR'
         testRunTitle: 'JMeter Endurance Tests of FAKE API'
     - task: TaurusRunner@0
+      displayName: "Run JMeter Stress Tests"
       inputs:
         taurusConfig: |
           modules:
@@ -262,6 +269,7 @@ stages:
 
 
     - task: PublishTestResults@2
+      displayName: "Publish JMeter Stress Tests Results"
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '$JMSTRESSTESTREPORTDIR/stress.xml'
