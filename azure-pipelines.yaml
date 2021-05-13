@@ -129,14 +129,23 @@ stages:
     value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance
   - name: JMENDURETESTREPORTDIR
     value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance/report
+  - name: JMENDURETESTINDEXDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance/index
   - name: JMESTRESSTESTDIR
     value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress
   - name: JMSTRESSTESTREPORTDIR
     value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress/report
+  - name: JMSTRESSTESTINDEXDIR
+    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress/index
 
   jobs:
 
   - job: PerformQATests
+
+    pool:
+      vmImage: 'Ubuntu-16.04'
+
+
     steps:
 
     - task: UsePythonVersion@0
@@ -209,6 +218,9 @@ stages:
     - task: TaurusRunner@0
       inputs:
         taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j endurance.log -e -o $JMENDURETESTINDEXDIR
           execution:
           - scenario:
                 script: $JMENDURETESTDIR/Project_3-Endurance-Test_Plan.jmx
@@ -231,9 +243,14 @@ stages:
     - task: TaurusRunner@0
       inputs:
         taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j stress.log -e -o $JMSTRESSTESTINDEXDIR
+        
           execution:
           - scenario:
                 script: $JMESTRESSTESTDIR/Project_3-Stress-Test_Plan.jmx
+          
           
           reporting:
           - module: junit-xml
