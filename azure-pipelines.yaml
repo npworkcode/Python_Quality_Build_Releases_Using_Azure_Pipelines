@@ -48,12 +48,12 @@ stages:
 - stage: Deploy
 
   jobs:
-  - deployment: FakeRestAPI
-
-    pool:
-      vmImage: 'Ubuntu-16.04'
+  - deployment: VMDeploy
+    displayName: 'Deploy Faker API to VM'
     
-    environment: 'UbuntuVM'
+    environment: 
+      name: 'UbuntuVM'
+      resourceType: VirtualMachine
     strategy:
       runOnce:
         deploy:
