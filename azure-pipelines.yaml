@@ -58,6 +58,8 @@ stages:
       runOnce:
         deploy:
           steps:
+
+          - checkout: self
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: '$KNOWN_HOSTS_STRING'
@@ -137,6 +139,8 @@ stages:
 
 
     steps:
+    
+    - checkout: self
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: '$KNOWN_HOSTS_STRING'
