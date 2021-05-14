@@ -74,77 +74,40 @@ stages:
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
+          - task: Bash@3
+            displayName: "Install Chromedriver on VM"
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+          
+                sudo apt-get upgrade -y
+                sudo apt-get install python$(python.version)
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                a=$(uname -m)
+                rm -r /tmp/chromedriver/
+                mkdir /tmp/chromedriver/
+                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
+                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chmod 0755 /usr/local/bin/chromedriver
+                export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
 
-  - deployment: InstallSelenium
-    displayName: 'Install Selenium on Deployed VM'
-    environment:
-        name:  UbuntuVM
-        resourceType: VirtualMachine
-    strategy:
-        runOnce:
-          deploy:
-           steps:
-           
-            - task: InstallSSHKey@0
-              inputs:
-                knownHostsEntry: '$KNOWN_HOSTS_STRING'
-                sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCdomc+cf5MGAjEBWfkv5nwD9woSt5BdlF/qntswPr3OnBrvLbJrrb45OuGp41TCGngUneB0vvf04g4rS7UC/5leUcBfJNz0KbB5DrBr60gXhxH8K/0ZOOnTHKTRTfBZWo2VaI8i7DwUKAa76xi2OV88Mxh+bnlt76bZulhL4hq6a17qaiaaO/gBiTJw0VmQbP7KIZmW6wQrvh9sljvw0hSVqEGIHLu69EZ+NAt7AKfsZTb0rK64mKqaqO7JMjVeCy6PI+Ef70zQUZVk8wydlXcIh/uUWau1RHuz/EXGtcqL3DxcdsEmlquRE+amkUFUfAWYwtCYL4zjky1ULCoQL7f5z6iIgxmWdbdCVNp/bEMoI88VOl21etwVHMm0hNbIhBrjl6LnbUDQ1Np7ZQ6D8kxlVqYNwbzmv6lmfcPS1XS/NHcnVLuCCWzSGRzNsPpyKLVuDP74I9ZNhdmNPZNiWuIPKfcBacTQOMD0/DxoSOlIsbGf8kuRrIgQkOKeJslrBk= NPMain@DESKTOP-KGO6L6B'
-                sshKeySecureFile: 'tfkey'
-              env:
-                KNOWN_HOSTS_STRING: $(aps-known-host)
-                PUBLIC_KEY        : $(aps-tf-public-key)
-
-            - task: Bash@3
-              inputs:
-               targetType: 'inline'
-               script: |
-                  #! /bin/bash
-            
-                  sudo apt-get upgrade -y
-                  sudo apt-get install python$(python.version)
-                  sudo apt-get install python3-pip -y
-                  sudo apt-get install unzip -y
-                  sudo apt-get install -y chromium-browser
-                  pip3 install selenium
-                  a=$(uname -m)
-                  rm -r /tmp/chromedriver/
-                  mkdir /tmp/chromedriver/
-                  wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
-                  if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
-                  latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
-                  wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
-                  sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
-                  sudo chown root:root /usr/local/bin/chromedriver
-                  sudo chmod 0755 /usr/local/bin/chromedriver
-                  export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
-
-
-  - deployment: RunSeleniumQA
-    displayName: 'Run Selenium QA Tests'
-    environment:
-        name:  UbuntuVM
-        resourceType: VirtualMachine
-    strategy:
-        runOnce:
-          deploy:
-           steps:
-            - task: InstallSSHKey@0
-              inputs:
-                knownHostsEntry: '$KNOWN_HOSTS_STRING'
-                sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCdomc+cf5MGAjEBWfkv5nwD9woSt5BdlF/qntswPr3OnBrvLbJrrb45OuGp41TCGngUneB0vvf04g4rS7UC/5leUcBfJNz0KbB5DrBr60gXhxH8K/0ZOOnTHKTRTfBZWo2VaI8i7DwUKAa76xi2OV88Mxh+bnlt76bZulhL4hq6a17qaiaaO/gBiTJw0VmQbP7KIZmW6wQrvh9sljvw0hSVqEGIHLu69EZ+NAt7AKfsZTb0rK64mKqaqO7JMjVeCy6PI+Ef70zQUZVk8wydlXcIh/uUWau1RHuz/EXGtcqL3DxcdsEmlquRE+amkUFUfAWYwtCYL4zjky1ULCoQL7f5z6iIgxmWdbdCVNp/bEMoI88VOl21etwVHMm0hNbIhBrjl6LnbUDQ1Np7ZQ6D8kxlVqYNwbzmv6lmfcPS1XS/NHcnVLuCCWzSGRzNsPpyKLVuDP74I9ZNhdmNPZNiWuIPKfcBacTQOMD0/DxoSOlIsbGf8kuRrIgQkOKeJslrBk= NPMain@DESKTOP-KGO6L6B'
-                sshKeySecureFile: 'tfkey'
-              env:
-                KNOWN_HOSTS_STRING: $(aps-known-host)
-                PUBLIC_KEY        : $(aps-tf-public-key)
-
-            - task: Bash@3
-              inputs:
-               targetType: 'inline'
-               script: |
-                  #! /bin/bash
-                  mkdir ~/scripts
-                  cp $(Build.SourcesDirectory)/login.py ~/scripts
-                  python3 ~/scripts/login.py
+          - task: Bash@3
+            displayName: 'Run Selenium QA Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                mkdir ~/scripts
+                cp $(Build.SourcesDirectory)/login.py ~/scripts
+                python3 ~/scripts/login.py
 
 - stage: Test
   variables:
