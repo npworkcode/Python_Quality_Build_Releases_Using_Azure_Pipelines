@@ -34,7 +34,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: '$(Agent.BuildDirectory)/automatedtesting/jmeter/fakerestapi'
+        rootFolderOrFile: '$(Build.SourcesDirectory)/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -116,27 +116,27 @@ stages:
                script: |
                   #! /bin/bash
                   mkdir ~/scripts
-                  cp $(Agent.BuildDirectory)/login.py ~/scripts
+                  cp $(Build.SourcesDirectory)/login.py ~/scripts
                   python3 ~/scripts/login.py
 
 - stage: Test
   variables:
   - name: POSTMANSRCDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/postman
+    value: $(Build.SourcesDirectory)/automatedtesting/postman
   - name: POSTMANREPORTDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/postman/report
+    value: $(Build.SourcesDirectory)/automatedtesting/postman/report
   - name: JMENDURETESTDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance
   - name: JMENDURETESTREPORTDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance/report
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/report
   - name: JMENDURETESTINDEXDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/endurance/index
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/index
   - name: JMESTRESSTESTDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress
   - name: JMSTRESSTESTREPORTDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress/report
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/report
   - name: JMSTRESSTESTINDEXDIR
-    value: $(Agent.BuildDirectory)/automatedtesting/jmeter/stress/index
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/index
 
   jobs:
 
