@@ -25,8 +25,8 @@ stages:
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: '$KNOWN_HOSTS_STRING'
-        sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCdomc+cf5MGAjEBWfkv5nwD9woSt5BdlF/qntswPr3OnBrvLbJrrb45OuGp41TCGngUneB0vvf04g4rS7UC/5leUcBfJNz0KbB5DrBr60gXhxH8K/0ZOOnTHKTRTfBZWo2VaI8i7DwUKAa76xi2OV88Mxh+bnlt76bZulhL4hq6a17qaiaaO/gBiTJw0VmQbP7KIZmW6wQrvh9sljvw0hSVqEGIHLu69EZ+NAt7AKfsZTb0rK64mKqaqO7JMjVeCy6PI+Ef70zQUZVk8wydlXcIh/uUWau1RHuz/EXGtcqL3DxcdsEmlquRE+amkUFUfAWYwtCYL4zjky1ULCoQL7f5z6iIgxmWdbdCVNp/bEMoI88VOl21etwVHMm0hNbIhBrjl6LnbUDQ1Np7ZQ6D8kxlVqYNwbzmv6lmfcPS1XS/NHcnVLuCCWzSGRzNsPpyKLVuDP74I9ZNhdmNPZNiWuIPKfcBacTQOMD0/DxoSOlIsbGf8kuRrIgQkOKeJslrBk= NPMain@DESKTOP-KGO6L6B'
-        sshKeySecureFile: 'tfkey'
+        sshPublicKey: '$PUBLIC_KEY'
+        sshKeySecureFile: 'deploy_key'
       env:
         KNOWN_HOSTS_STRING: $(aps-known-host)
         PUBLIC_KEY        : $(aps-tf-public-key)
