@@ -107,6 +107,7 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
+                sudo mkdir /var/logs
                 sudo mkdir ~/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
                 sudo python3 ~/scripts/login.py
