@@ -182,7 +182,7 @@ stages:
       env:
         KNOWN_HOSTS_STRING: $(aps-known-host)
         PUBLIC_KEY        : $(aps-tf-public-key)
-        
+
     - task: UsePythonVersion@0
       inputs:
         versionSpec: '3.7.6'
