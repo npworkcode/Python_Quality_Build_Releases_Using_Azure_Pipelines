@@ -74,7 +74,7 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                sudo apt install ./google-chrome-stable_current_amd64.deb
+                sudo dpkg -i google-chrome-stable_current_amd64.deb
                 a=$(uname -m)
                 rm -r /tmp/chromedriver/
                 mkdir /tmp/chromedriver/
