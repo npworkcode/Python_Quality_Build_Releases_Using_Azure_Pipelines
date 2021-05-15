@@ -25,7 +25,7 @@ stages:
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: '$KNOWN_HOSTS_STRING'
-        sshPublicKey: '$PUBLIC_KEY'
+        sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDvKIH4Oxhb4hwfl/+E0HLrMS5QEjYGRLRNuKzSHzGFJ+u4BFyC4OqyhY5JRvlOgMGyzDLEXnzvp2lWiYJRoorZEuKI/7bpJ//tuEnvoAGmugutGUDDiUbtqRNGqezBoMI4rstrqz4Tbtj/yYSQDBrkUGrHiC/WxHelEycnimqDuZ9aK5hWdpxRYJK8bAflkU29svwN2XG9cKMLSdxSG1vRqouy4+hOd8lu9jkgHA9VJ+iQLmgQYhK7YpTmCPWKSuf4+Blgk9slqTF7ESa6N/Qqm+TJsJgozxvWLuGh2RTZWd15HJZTxRGFJ1W7Z0DMpYAtrQOAhFrtBnXVNQcvx/L4WxpmtXbKwXMo9K/2tECi5jZnbJ9i1xXXBl6zHEHwMqNQGff1BRt37yqqtfV6qgB6/Tu0OxERGsF+k0gRg0rpa6zweSJKAqIZosNsuvnexGwuOeaQcHrvwZHriELMstF4mH2R9ESyoPjMW+JZBsYmhNzoEsZDDPXkXq5iq+zrg//hwCqDd7IgOAbs2buDrFaBoLjIRXYa90ZuiXgbLhc+X3RVK2tA5LQDRGAOkgSEaaC7Hi8BNOyMI8j/o7hnjkAu/Y3PFTodh8OoQ/omuAkz3ehC+lOrOFUAehRIAoRJtMS5QEFF2sBGKGrWZQUq8do462d6tXUUWezCWeRstoYUSQ== np_3000@hotmail.com'
         sshKeySecureFile: 'deploy_key'
       env:
         KNOWN_HOSTS_STRING: $(aps-known-host)
@@ -64,7 +64,7 @@ stages:
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: '$KNOWN_HOSTS_STRING'
-              sshPublicKey: '$PUBLIC_KEY'
+              sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDvKIH4Oxhb4hwfl/+E0HLrMS5QEjYGRLRNuKzSHzGFJ+u4BFyC4OqyhY5JRvlOgMGyzDLEXnzvp2lWiYJRoorZEuKI/7bpJ//tuEnvoAGmugutGUDDiUbtqRNGqezBoMI4rstrqz4Tbtj/yYSQDBrkUGrHiC/WxHelEycnimqDuZ9aK5hWdpxRYJK8bAflkU29svwN2XG9cKMLSdxSG1vRqouy4+hOd8lu9jkgHA9VJ+iQLmgQYhK7YpTmCPWKSuf4+Blgk9slqTF7ESa6N/Qqm+TJsJgozxvWLuGh2RTZWd15HJZTxRGFJ1W7Z0DMpYAtrQOAhFrtBnXVNQcvx/L4WxpmtXbKwXMo9K/2tECi5jZnbJ9i1xXXBl6zHEHwMqNQGff1BRt37yqqtfV6qgB6/Tu0OxERGsF+k0gRg0rpa6zweSJKAqIZosNsuvnexGwuOeaQcHrvwZHriELMstF4mH2R9ESyoPjMW+JZBsYmhNzoEsZDDPXkXq5iq+zrg//hwCqDd7IgOAbs2buDrFaBoLjIRXYa90ZuiXgbLhc+X3RVK2tA5LQDRGAOkgSEaaC7Hi8BNOyMI8j/o7hnjkAu/Y3PFTodh8OoQ/omuAkz3ehC+lOrOFUAehRIAoRJtMS5QEFF2sBGKGrWZQUq8do462d6tXUUWezCWeRstoYUSQ== np_3000@hotmail.com'
               sshKeySecureFile: 'deploy_key'
             env:
               KNOWN_HOSTS_STRING: $(aps-known-host)
@@ -173,7 +173,7 @@ stages:
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: '$KNOWN_HOSTS_STRING'
-        sshPublicKey: '$PUBLIC_KEY'
+        sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDvKIH4Oxhb4hwfl/+E0HLrMS5QEjYGRLRNuKzSHzGFJ+u4BFyC4OqyhY5JRvlOgMGyzDLEXnzvp2lWiYJRoorZEuKI/7bpJ//tuEnvoAGmugutGUDDiUbtqRNGqezBoMI4rstrqz4Tbtj/yYSQDBrkUGrHiC/WxHelEycnimqDuZ9aK5hWdpxRYJK8bAflkU29svwN2XG9cKMLSdxSG1vRqouy4+hOd8lu9jkgHA9VJ+iQLmgQYhK7YpTmCPWKSuf4+Blgk9slqTF7ESa6N/Qqm+TJsJgozxvWLuGh2RTZWd15HJZTxRGFJ1W7Z0DMpYAtrQOAhFrtBnXVNQcvx/L4WxpmtXbKwXMo9K/2tECi5jZnbJ9i1xXXBl6zHEHwMqNQGff1BRt37yqqtfV6qgB6/Tu0OxERGsF+k0gRg0rpa6zweSJKAqIZosNsuvnexGwuOeaQcHrvwZHriELMstF4mH2R9ESyoPjMW+JZBsYmhNzoEsZDDPXkXq5iq+zrg//hwCqDd7IgOAbs2buDrFaBoLjIRXYa90ZuiXgbLhc+X3RVK2tA5LQDRGAOkgSEaaC7Hi8BNOyMI8j/o7hnjkAu/Y3PFTodh8OoQ/omuAkz3ehC+lOrOFUAehRIAoRJtMS5QEFF2sBGKGrWZQUq8do462d6tXUUWezCWeRstoYUSQ== np_3000@hotmail.com'
         sshKeySecureFile: 'deploy_key'
       env:
         KNOWN_HOSTS_STRING: $(aps-known-host)
