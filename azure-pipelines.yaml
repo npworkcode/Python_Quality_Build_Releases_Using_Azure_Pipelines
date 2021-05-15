@@ -17,7 +17,7 @@ stages:
   - job: Build
 
     pool:
-      name: Hosted Ubuntu 1604
+      vmImage: 'ubuntu-16.04'
 
     steps:
     # Needed for Terraform VM deployment
@@ -52,7 +52,7 @@ stages:
     displayName: 'Deploy Faker API to VM'
 
     pool:
-      vmImage: 'Ubuntu-16.04'
+      vmImage: 'ubuntu-16.04'
     
     environment: 
       name: 'Test'
