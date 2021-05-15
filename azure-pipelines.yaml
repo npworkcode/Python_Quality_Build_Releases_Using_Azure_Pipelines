@@ -7,6 +7,8 @@ variables:
 - name: python.version
   value: '3.7.6'
 
+pool:
+  vmImage: 'ubuntu-16.04'
   
 stages:
 
@@ -16,20 +18,10 @@ stages:
 
   - job: Build
 
-    pool:
-      vmImage: 'ubuntu-16.04'
+
 
     steps:
     # Needed for Terraform VM deployment
-
-    - task: InstallSSHKey@0
-      inputs:
-        knownHostsEntry: '$KNOWN_HOSTS_STRING'
-        sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDvKIH4Oxhb4hwfl/+E0HLrMS5QEjYGRLRNuKzSHzGFJ+u4BFyC4OqyhY5JRvlOgMGyzDLEXnzvp2lWiYJRoorZEuKI/7bpJ//tuEnvoAGmugutGUDDiUbtqRNGqezBoMI4rstrqz4Tbtj/yYSQDBrkUGrHiC/WxHelEycnimqDuZ9aK5hWdpxRYJK8bAflkU29svwN2XG9cKMLSdxSG1vRqouy4+hOd8lu9jkgHA9VJ+iQLmgQYhK7YpTmCPWKSuf4+Blgk9slqTF7ESa6N/Qqm+TJsJgozxvWLuGh2RTZWd15HJZTxRGFJ1W7Z0DMpYAtrQOAhFrtBnXVNQcvx/L4WxpmtXbKwXMo9K/2tECi5jZnbJ9i1xXXBl6zHEHwMqNQGff1BRt37yqqtfV6qgB6/Tu0OxERGsF+k0gRg0rpa6zweSJKAqIZosNsuvnexGwuOeaQcHrvwZHriELMstF4mH2R9ESyoPjMW+JZBsYmhNzoEsZDDPXkXq5iq+zrg//hwCqDd7IgOAbs2buDrFaBoLjIRXYa90ZuiXgbLhc+X3RVK2tA5LQDRGAOkgSEaaC7Hi8BNOyMI8j/o7hnjkAu/Y3PFTodh8OoQ/omuAkz3ehC+lOrOFUAehRIAoRJtMS5QEFF2sBGKGrWZQUq8do462d6tXUUWezCWeRstoYUSQ== np_3000@hotmail.com'
-        sshKeySecureFile: 'deploy_key'
-      env:
-        KNOWN_HOSTS_STRING: $(aps-known-host)
-        PUBLIC_KEY        : $(aps-tf-public-key)
 
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
@@ -48,44 +40,7 @@ stages:
 - stage: Deploy
 
   jobs:
-  - deployment: FakeRESTAPI
-    displayName: 'Deploy Faker API to VM'
 
-    pool:
-      vmImage: 'ubuntu-16.04'
-    
-    environment: 
-      name: 'QA'
-      resourceType: VirtualMachine
-    strategy:
-      runOnce:
-        preDeploy:
-          steps:
-          - task: InstallSSHKey@0
-            inputs:
-              knownHostsEntry: '$KNOWN_HOSTS_STRING'
-              sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDvKIH4Oxhb4hwfl/+E0HLrMS5QEjYGRLRNuKzSHzGFJ+u4BFyC4OqyhY5JRvlOgMGyzDLEXnzvp2lWiYJRoorZEuKI/7bpJ//tuEnvoAGmugutGUDDiUbtqRNGqezBoMI4rstrqz4Tbtj/yYSQDBrkUGrHiC/WxHelEycnimqDuZ9aK5hWdpxRYJK8bAflkU29svwN2XG9cKMLSdxSG1vRqouy4+hOd8lu9jkgHA9VJ+iQLmgQYhK7YpTmCPWKSuf4+Blgk9slqTF7ESa6N/Qqm+TJsJgozxvWLuGh2RTZWd15HJZTxRGFJ1W7Z0DMpYAtrQOAhFrtBnXVNQcvx/L4WxpmtXbKwXMo9K/2tECi5jZnbJ9i1xXXBl6zHEHwMqNQGff1BRt37yqqtfV6qgB6/Tu0OxERGsF+k0gRg0rpa6zweSJKAqIZosNsuvnexGwuOeaQcHrvwZHriELMstF4mH2R9ESyoPjMW+JZBsYmhNzoEsZDDPXkXq5iq+zrg//hwCqDd7IgOAbs2buDrFaBoLjIRXYa90ZuiXgbLhc+X3RVK2tA5LQDRGAOkgSEaaC7Hi8BNOyMI8j/o7hnjkAu/Y3PFTodh8OoQ/omuAkz3ehC+lOrOFUAehRIAoRJtMS5QEFF2sBGKGrWZQUq8do462d6tXUUWezCWeRstoYUSQ== np_3000@hotmail.com'
-              sshKeySecureFile: 'deploy_key'
-            env:
-              KNOWN_HOSTS_STRING: $(aps-known-host)
-              PUBLIC_KEY        : $(aps-tf-public-key)
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'QASC'
-              appName: 'Python-Linux-app'
-              appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-
-        on:
-          failure:
-            steps:
-              - script: echo Fake REST API was not deployed
-          success:
-            steps:
-              - script: echo Fake REST API deployed successfully
 
   - deployment: VMDeploy
     displayName: 'QA for Website'
@@ -97,6 +52,14 @@ stages:
         deploy:
           steps:
           - checkout: self
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
           - task: Bash@3
             displayName: "Install Chromedriver on VM"
             inputs:
@@ -164,10 +127,6 @@ stages:
   jobs:
 
   - job: PerformQATests
-
-    pool:
-      vmImage: 'ubuntu-latest'
-
 
     steps:
     
