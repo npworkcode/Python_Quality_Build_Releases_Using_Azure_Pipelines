@@ -48,18 +48,19 @@ stages:
 - stage: Deploy
 
   jobs:
-  - deployment: VMDeploy
+  - deployment: FakeRESTAPI
     displayName: 'Deploy Faker API to VM'
+
+    pool:
+      vmImage: 'Ubuntu-16.04'
     
     environment: 
-      name: 'UbuntuVM'
-      resourceType: VirtualMachine
+      name: 'Test'
+
     strategy:
       runOnce:
-        deploy:
+        preDeploy:
           steps:
-
-          - checkout: self
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: '$KNOWN_HOSTS_STRING'
@@ -68,6 +69,8 @@ stages:
             env:
               KNOWN_HOSTS_STRING: $(aps-known-host)
               PUBLIC_KEY        : $(aps-tf-public-key)
+        deploy:
+          steps:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
@@ -76,6 +79,24 @@ stages:
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
+        on:
+          failure:
+            steps:
+              - script: echo Fake REST API was not deployed
+          success:
+            steps:
+              - script: echo Fake REST API deployed successfully
+
+  - deployment: VMDeploy
+    displayName: 'QA for Website'
+    environment:
+      name: 'QA'
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
           - task: Bash@3
             displayName: "Install Chromedriver on VM"
             inputs:
@@ -100,7 +121,6 @@ stages:
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
                 export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
-
           - task: Bash@3
             displayName: 'Run Selenium QA Tests'
             inputs:
@@ -111,6 +131,14 @@ stages:
                 sudo mkdir ~/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
                 sudo python3 ~/scripts/login.py
+
+        on:
+          failure:
+            steps:
+            - script: echo Selenium QA Tests were not completed
+          success:
+            steps:
+            - script: echo Selenium QA Tests completed successfully
 
 - stage: Test
   variables:
