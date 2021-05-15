@@ -55,8 +55,8 @@ stages:
       vmImage: 'ubuntu-16.04'
     
     environment: 
-      name: 'Test'
-
+      name: 'QA'
+      resourceType: VirtualMachine
     strategy:
       runOnce:
         preDeploy:
@@ -74,7 +74,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: 'PythonAppSC'
+              azureSubscription: 'QASC'
               appName: 'Python-Linux-app'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
