@@ -60,13 +60,22 @@ stages:
               appName: 'Python-Linux-app'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: '$KNOWN_HOSTS_STRING'
+              sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDvKIH4Oxhb4hwfl/+E0HLrMS5QEjYGRLRNuKzSHzGFJ+u4BFyC4OqyhY5JRvlOgMGyzDLEXnzvp2lWiYJRoorZEuKI/7bpJ//tuEnvoAGmugutGUDDiUbtqRNGqezBoMI4rstrqz4Tbtj/yYSQDBrkUGrHiC/WxHelEycnimqDuZ9aK5hWdpxRYJK8bAflkU29svwN2XG9cKMLSdxSG1vRqouy4+hOd8lu9jkgHA9VJ+iQLmgQYhK7YpTmCPWKSuf4+Blgk9slqTF7ESa6N/Qqm+TJsJgozxvWLuGh2RTZWd15HJZTxRGFJ1W7Z0DMpYAtrQOAhFrtBnXVNQcvx/L4WxpmtXbKwXMo9K/2tECi5jZnbJ9i1xXXBl6zHEHwMqNQGff1BRt37yqqtfV6qgB6/Tu0OxERGsF+k0gRg0rpa6zweSJKAqIZosNsuvnexGwuOeaQcHrvwZHriELMstF4mH2R9ESyoPjMW+JZBsYmhNzoEsZDDPXkXq5iq+zrg//hwCqDd7IgOAbs2buDrFaBoLjIRXYa90ZuiXgbLhc+X3RVK2tA5LQDRGAOkgSEaaC7Hi8BNOyMI8j/o7hnjkAu/Y3PFTodh8OoQ/omuAkz3ehC+lOrOFUAehRIAoRJtMS5QEFF2sBGKGrWZQUq8do462d6tXUUWezCWeRstoYUSQ== np_3000@hotmail.com'
+              sshKeySecureFile: 'deploy_key'
+            env:
+              KNOWN_HOSTS_STRING: $(aps-known-host)
+              PUBLIC_KEY        : $(aps-tf-public-key)
+
           - task: Bash@3
             displayName: "Install Chromedriver on VM"
             inputs:
               targetType: 'inline'
               script: |
                 #! /bin/bash
-          
                 sudo apt-get upgrade -y
                 sudo apt-get install python$(python.version)
                 sudo apt-get install python3-pip -y
@@ -81,7 +90,7 @@ stages:
                 latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
                 wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
                 sudo unzip -fo /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
-                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chown adminuser:adminuser /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
                 export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
           - task: Bash@3
@@ -90,13 +99,13 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
-                sudo mkdir /var/logs
-                sudo touch /var/logs/loginapp.log
+                mkdir /var/logs
+                touch /var/logs/loginapp.log
                 sudo chmod 0755 /var/logs/loginapp.log
                 mkdir ~/scripts
-                sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
+                 cp $(Build.SourcesDirectory)/login.py ~/scripts
                 sudo chmod 0755 ~/scripts/login.py
-                sudo python3 ~/scripts/login.py
+                python3 ~/scripts/login.py
 
         on:
           failure:
