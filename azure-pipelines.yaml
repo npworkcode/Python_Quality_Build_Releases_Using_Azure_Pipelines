@@ -73,19 +73,17 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
-                # wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                # sudo dpkg -i google-chrome-stable_current_amd64.deb
-                # a=$(uname -m)
-                # rm -r /tmp/chromedriver/
-                # mkdir /tmp/chromedriver/
-                # wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
-                # if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
-                # latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
-                # wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
-                # sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
-                # sudo chown root:root /usr/local/bin/chromedriver
-                # sudo chmod 0755 /usr/local/bin/chromedriver
-                export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
+                a=$(uname -m)
+                rm -r /tmp/chromedriver/
+                mkdir /tmp/chromedriver/
+                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
+                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chmod 0755 /usr/local/bin/chromedriver
+                export PATH=$PATH:/usr/local/bin/chromedriver:/usr/bin >> ~/.profile
           - task: Bash@3
             displayName: 'Run Selenium QA Tests'
             inputs:
@@ -93,17 +91,19 @@ stages:
               script: |
                 #! /bin/bash
                 sudo mkdir /var/logs
-                sudo mkdir ~/scripts
+                sudo touch /var/logs/loginapp.log
+                sudo chmod o+w /var/logs/loginapp.log
+                mkdir ~/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
-                sudo python3 ~/scripts/login.py
+                python3 ~/scripts/login.py
 
         on:
           failure:
             steps:
-            - script: echo Selenium QA Tests were not completed
+            - script: echo Deployment of WebApp & Selenium QA Tests were not completed
           success:
             steps:
-            - script: echo Selenium QA Tests completed successfully
+            - script: echo Deployment of WebApp & Selenium QA Tests completed successfully
 
 - stage: Test
   variables:
