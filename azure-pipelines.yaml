@@ -96,7 +96,7 @@ stages:
                 mkdir ~/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
                 sudo chmod 0755 ~/scripts/login.py
-                python3 ~/scripts/login.py
+                sudo python3 ~/scripts/login.py
 
         on:
           failure:
