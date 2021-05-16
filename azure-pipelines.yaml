@@ -12,7 +12,99 @@ pool:
   
 stages:
 
+- stage: Build
 
+  jobs:
+
+  - job: Build
+
+
+
+    steps:
+    # Needed for Terraform VM deployment
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/automatedtesting/jmeter/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+        verbose: true
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
+      
+
+
+- stage: Deploy
+
+  jobs:
+
+
+  - deployment: VMDeploy
+    displayName: 'QA for Website'
+    environment:
+      name: 'QA'
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+          - task: Bash@3
+            displayName: "Install Chromedriver on VM"
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+          
+                sudo apt-get upgrade -y
+                sudo apt-get install python$(python.version)
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                a=$(uname -m)
+                sudo rm -rf /tmp/chromedriver/
+                mkdir /tmp/chromedriver/
+                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                unzip -fo /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
+                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chmod 0755 /usr/local/bin/chromedriver
+                export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
+          - task: Bash@3
+            displayName: 'Run Selenium QA Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                mkdir /var/logs
+                touch /var/logs/loginapp.log
+                sudo chmod o+w /var/logs/loginapp.log
+                mkdir ~/scripts
+                sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
+                sudo chmod 0755 ~/scripts/login.py
+                python3 ~/scripts/login.py
+
+        on:
+          failure:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests were not completed'
+          success:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests completed successfully'
 
 - stage: Test
   variables:
