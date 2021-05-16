@@ -5,7 +5,7 @@ trigger: none
 variables:
 - group: Quality_Release_SSH_Info
 - name: python.version
-  value: '3.7.6'
+  value: '3.7'
 
 pool:
   vmImage: 'ubuntu-16.04'
@@ -43,7 +43,7 @@ stages:
 
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '3.7'
+        versionSpec: '$(python.version)'
         addToPath: true
         architecture: 'x64'
 
@@ -136,8 +136,8 @@ stages:
       displayName: "Publish JMeter Endurance Test Results"
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '$JMENDURETESTREPORTDIR/endurance.xml'
-        searchFolder: '$JMENDURETESTREPORTDIR'
+        testResultsFiles: '$(JMENDURETESTREPORTDIR)/endurance.xml'
+        searchFolder: '$(JMENDURETESTREPORTDIR)'
         testRunTitle: 'JMeter Endurance Tests of FAKE API'
     - task: TaurusRunner@0
       displayName: "Run JMeter Stress Tests"
@@ -145,16 +145,16 @@ stages:
         taurusConfig: |
           modules:
             jmeter:
-              cmdline: -j stress.log -e -o $JMSTRESSTESTINDEXDIR
+              cmdline: -j stress.log -e -o $(JMSTRESSTESTINDEXDIR)
         
           execution:
           - scenario:
-                script: $JMESTRESSTESTDIR/Project_3-Stress-Test_Plan.jmx
+                script: $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx
           
           
           reporting:
           - module: junit-xml
-            filename: $JMSTRESSTESTREPORTDIR/stress.xml
+            filename: $(JMSTRESSTESTREPORTDIR)/stress.xml
         jmeterHome: '$(JMeterInstaller.JMeterHome)'
         jmeterPath: '$(JMeterInstaller.JMeterPath)'
         jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
@@ -165,6 +165,6 @@ stages:
       displayName: "Publish JMeter Stress Tests Results"
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '$JMSTRESSTESTREPORTDIR/stress.xml'
-        searchFolder: '$JMSTRESSTESTREPORTDIR'
+        testResultsFiles: '$(JMSTRESSTESTREPORTDIR)/stress.xml'
+        searchFolder: '$(JMSTRESSTESTREPORTDIR)'
         testRunTitle: 'JMeter Stress Tests of FAKE API'
