@@ -76,10 +76,10 @@ stages:
                 a=$(uname -m)
                 sudo rm -rf /tmp/chromedriver/
                 sudo mkdir /tmp/chromedriver/
-                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                sudo wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
                 if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
                 latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
-                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                sudo wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
                 sudo unzip -fo /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
