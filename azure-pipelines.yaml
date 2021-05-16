@@ -83,7 +83,7 @@ stages:
                 sudo unzip -fo /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
-                export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
+                sudo export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
           - task: Bash@3
             displayName: 'Run Selenium QA Tests'
             inputs:
@@ -94,9 +94,9 @@ stages:
                 touch /var/logs/loginapp.log
                 sudo chmod 0755 /var/logs/loginapp.log
                 mkdir ~/scripts
-                 cp $(Build.SourcesDirectory)/login.py ~/scripts
+                sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
                 sudo chmod 0755 ~/scripts/login.py
-                python3 ~/scripts/login.py
+                sudo python3 ~/scripts/login.py
 
         on:
           failure:
