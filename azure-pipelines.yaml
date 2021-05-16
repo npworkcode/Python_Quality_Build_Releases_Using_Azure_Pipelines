@@ -26,7 +26,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: '$(Build.SourcesDirectory)/automatedtesting/jmeter/fakerestapi'
+        rootFolderOrFile: '$(Build.SourcesDirectory)/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -90,8 +90,8 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
-                mkdir /var/logs
-                touch /var/logs/loginapp.log
+                sudo mkdir /var/logs
+                sudo touch /var/logs/loginapp.log
                 sudo chmod o+w /var/logs/loginapp.log
                 mkdir ~/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
