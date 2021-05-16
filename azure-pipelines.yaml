@@ -66,14 +66,14 @@ stages:
             --reporter-html-export $POSTMANREPORTDIR/html/datavalidationhtmltests.html \
             --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml \
             --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/datavalidationhtmlextratests.html
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        workingDirectory: '$(Build.ArtifactStagingDirectory)'
 
     - task: PublishTestResults@2
       displayName: "Publish Postman Data Validation Test Results"
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '$POSTMANREPORTDIR/junit/datavalidationjunittests.xml'
-        searchFolder: '$POSTMANREPORTDIR/junit'
+        testResultsFiles: '$(POSTMANREPORTDIR)/junit/datavalidationjunittests.xml'
+        searchFolder: '$(POSTMANREPORTDIR)/junit'
         testRunTitle: 'Data Validation Tests of FAKE API'
 
     - task: CmdLine@2
@@ -94,8 +94,8 @@ stages:
       displayName: "Publish Postman Regression Test Results"
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '$POSTMANREPORTDIR/junit/regressionjunittests.xml'
-        searchFolder: '$POSTMANREPORTDIR/junit'
+        testResultsFiles: '$(POSTMANREPORTDIR)/junit/regressionjunittests.xml'
+        searchFolder: '$(POSTMANREPORTDIR)/junit'
         testRunTitle: 'Data Validation Tests of FAKE API'
 
 
@@ -118,14 +118,14 @@ stages:
         taurusConfig: |
           modules:
             jmeter:
-              cmdline: -j endurance.log -e -o $JMENDURETESTINDEXDIR
+              cmdline: -j endurance.log -e -o $(JMENDURETESTINDEXDIR)
           execution:
           - scenario:
-                script: $JMENDURETESTDIR/Project_3-Endurance-Test_Plan.jmx
+                script: $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx
           
           reporting:
           - module: junit-xml
-            filename: $JMENDURETESTREPORTDIR/endurance.xml
+            filename: $(JMENDURETESTREPORTDIR)/endurance.xml
         jmeterHome: '$(JMeterInstaller.JMeterHome)'
         jmeterPath: '$(JMeterInstaller.JMeterPath)'
         jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
