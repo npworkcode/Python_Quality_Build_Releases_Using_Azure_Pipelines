@@ -29,7 +29,7 @@ stages:
   - name: JMESTRESSTESTDIR
     value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress
   - name: JMSTRESSTESTREPORTDIR
-    value: $(Build.ArtifactStagingDirectoryy)/automatedtesting/jmeter/stress/report
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/report
   - name: JMSTRESSTESTINDEXDIR
     value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/index
 
@@ -129,7 +129,7 @@ stages:
         jmeterHome: '$(JMeterInstaller.JMeterHome)'
         jmeterPath: '$(JMeterInstaller.JMeterPath)'
         jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
-        outputDir: $JMENDURETESTREPORTDIR'
+        outputDir: '$(JMENDURETESTREPORTDIR)'
 
 
     - task: PublishTestResults@2
@@ -158,7 +158,7 @@ stages:
         jmeterHome: '$(JMeterInstaller.JMeterHome)'
         jmeterPath: '$(JMeterInstaller.JMeterPath)'
         jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
-        outputDir: $JMSTRESSTESTREPORTDIR'
+        outputDir: '$(JMSTRESSTESTREPORTDIR)'
 
 
     - task: PublishTestResults@2
