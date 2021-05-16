@@ -101,10 +101,10 @@ stages:
         on:
           failure:
             steps:
-            - script: echo Deployment of WebApp & Selenium QA Tests were not completed
+            - script: echo 'Deployment of WebApp & Selenium QA Tests were not completed'
           success:
             steps:
-            - script: echo Deployment of WebApp & Selenium QA Tests completed successfully
+            - script: echo 'Deployment of WebApp & Selenium QA Tests completed successfully'
 
 - stage: Test
   variables:
