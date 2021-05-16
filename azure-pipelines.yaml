@@ -92,7 +92,7 @@ stages:
                 #! /bin/bash
                 mkdir /var/logs
                 touch /var/logs/loginapp.log
-                sudo chmod 0755 /var/logs/loginapp.log
+                sudo chmod 0777 /var/logs/loginapp.log
                 mkdir ~/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
                 sudo chmod 0755 ~/scripts/login.py
