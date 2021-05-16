@@ -109,21 +109,21 @@ stages:
 - stage: Test
   variables:
   - name: POSTMANSRCDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/postman
+    value: $(Build.SourcesDirectory)/automatedtesting/postman/
   - name: POSTMANREPORTDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/postman/report
+    value: $(Build.SourcesDirectory)/automatedtesting/postman/report/
   - name: JMENDURETESTDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/
   - name: JMENDURETESTREPORTDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/report
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/report/
   - name: JMENDURETESTINDEXDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/index
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance/index/
   - name: JMESTRESSTESTDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/
   - name: JMSTRESSTESTREPORTDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/report
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/report/
   - name: JMSTRESSTESTINDEXDIR
-    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/index
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress/index/
 
   jobs:
 
