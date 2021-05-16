@@ -83,7 +83,7 @@ stages:
                 sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
-                export PATH=$PATH:/usr/local/bin/chromedriver:/usr/bin >> ~/.profile
+                export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
           - task: Bash@3
             displayName: 'Run Selenium QA Tests'
             inputs:
