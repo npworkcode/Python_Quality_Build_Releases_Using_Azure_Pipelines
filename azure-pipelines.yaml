@@ -65,7 +65,7 @@ stages:
             inputs:
               azureSubscription: 'QASC'
               appName: 'Python-Linux-app'
-              appType: webApp
+              appType: webAppLinux
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
 
