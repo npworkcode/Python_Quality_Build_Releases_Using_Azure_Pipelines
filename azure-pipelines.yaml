@@ -34,7 +34,7 @@ stages:
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: $(KNOWN_HOSTS)
-              sshPublicKey: $(PUBLIC_KEY)
+              sshPublicKey: $(aps-tf-public-key)
               sshKeySecureFile: 'id_rsa'
             env:
               KNOWN_HOSTS   : $(aps-known-host)
