@@ -71,6 +71,5 @@ stages:
               WebAppName: 'Python-Linux-app'
               packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               RuntimeStack: 'DOTNETCORE|5.0'
-              StartupCommand: 'dotnet exec FakeRestAPI.Web.dll'
               AppSettings: -WEBSITE_RUN_FROM_PACKAGE 0
               DeploymentType: zipDeploy
