@@ -53,15 +53,6 @@ stages:
           steps:
           - checkout: self
 
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'QASC'
-              appName: 'Python-Linux-app'
-              appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-
-
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: '$(KNOWN_HOSTS_STRING)'
@@ -69,8 +60,16 @@ stages:
               sshKeySecureFile: 'deploy_key'
             env:
               KNOWN_HOSTS_STRING: $(aps-known-host)
-              PUBLIC_KEY        : $(aps-tf-public-key)          
-              
+              PUBLIC_KEY        : $(aps-tf-public-key)    
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+          
         
           - task: Bash@3
             displayName: "Install Chromedriver on VM"
