@@ -49,27 +49,15 @@ stages:
       runOnce:
         deploy:
           steps:
-          - checkout: self
 
-          # SSH Key Needed for VM Admin tasks
-          - task: InstallSSHKey@0
-            inputs:
-              knownHostsEntry: $(KNOWN_HOSTS)
-              sshPublicKey: '$(aps-tf-public-key)'
-              sshKeySecureFile: 'id_rsa'
-            env:
-              KNOWN_HOSTS   : $(aps-known-host)
             
-
-
-
-          - task: AzureRmWebAppDeployment@4
+          - task: AzureWebApp@1
             inputs:
-              ConnectionType: 'AzureRM'
               azureSubscription: 'QASC'
               appType: 'webAppLinux'
-              WebAppName: 'Python-Linux-app'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              RuntimeStack: 'DOTNETCORE|5.0'
-              AppSettings: -WEBSITE_RUN_FROM_PACKAGE 0
-              DeploymentType: zipDeploy
+              appName: 'Python-Linux-app'
+              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              runtimeStack: 'DOTNETCORE|5.0'
+              appSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+
+
