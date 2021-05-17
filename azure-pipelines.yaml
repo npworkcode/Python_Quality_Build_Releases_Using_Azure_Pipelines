@@ -67,5 +67,7 @@ stages:
               appName: 'Python-Linux-app'
               appType: webAppLinux
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              appSettings: -WEBSITE_RUN_FROM_PACKAGE 0
+              deploymentMethod: zipDeploy
 
 
