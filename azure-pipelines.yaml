@@ -12,7 +12,27 @@ pool:
   
 stages:
 
+- stage: Build
 
+  jobs:
+
+  - job: Build
+
+
+
+    steps:
+ 
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/automatedtesting/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+        verbose: true
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
 
 
 - stage: Deploy
@@ -29,8 +49,9 @@ stages:
       runOnce:
         deploy:
           steps:
-          #- checkout: self
+          - checkout: self
 
+          # SSH Key Needed for VM Admin tasks
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: $(KNOWN_HOSTS)
@@ -38,5 +59,13 @@ stages:
               sshKeySecureFile: 'id_rsa'
             env:
               KNOWN_HOSTS   : $(aps-known-host)
+            
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webAppLinux
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
 
