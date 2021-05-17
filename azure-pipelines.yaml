@@ -33,7 +33,7 @@ stages:
 
           - task: InstallSSHKey@0
             inputs:
-              knownHostsEntry: '$(KNOWN_HOSTS)'
+              knownHostsEntry: $(KNOWN_HOSTS)
               sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD0uVru0qonodQa0U7otYGAd0UEwGWO91YYmFsUcBsw8RdZPaja+kDd+7iHRMYwpKzKlUb9B7mZbxwK04uwZWYgGVdWyH9tzvE0QirQ9pssyxG931kEFlyaNER0FouzwCRmAUYGbQrxsQrMgz4tpt1PeK3dKJBMmUo5XUYPk4DHvBNIwB/aPaaAAfmQyfu8mZu/3zp1M+M6hHfAc7FPrm3H+lyTnIhxB+COSdGYrUYpv6V0r/ZN8+ad200raVNg2rgY8onx/WUS+SJqQCqfNr07KUZW0y67B6mr5p+G2YARrRhHYjLqCfxMbupDnxwSGewb4IkaWRlLmJF7+MLRsZKm58e63hNicPN08Ti9oP1D0tG4gjw5Zv9L29E3SnJW/09ZPsZiZHtAb8T62mXp4ZHhTD7GnfVjDLnisfX3h1O9YrajFjtQlRDAJnnqMycYYBTlatVNMC0x0CqREKK6e1Dqg6HLHZytUuJgd3kBzoCR9FoSWnd5F+PffXUlqKsaWhiEw+0xFuVjRG7JN1RBbhFEPFKrg5cfqnp258INRDOzj/WHJb9WmMMcdM0wDU7oqi78aek9B8SxeoXiWtURkUwG1Thvf12Q7gfKxMTkphF+A+iIRGV92shlmBQcXLQDKEzdUMhoxrc6/7b2+4S+WCekJCSuNKk5/+LP2PihNR08NQ== np@workmail.com'
               sshKeySecureFile: 'id_rsa'
             env:
