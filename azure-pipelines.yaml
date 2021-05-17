@@ -60,14 +60,17 @@ stages:
             env:
               KNOWN_HOSTS   : $(aps-known-host)
             
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
+
+
+
+          - task: AzureRmWebAppDeployment@4
             inputs:
+              ConnectionType: 'AzureRM'
               azureSubscription: 'QASC'
-              appName: 'Python-Linux-app'
-              appType: webAppLinux
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-              appSettings: -WEBSITE_RUN_FROM_PACKAGE 0
-              deploymentMethod: zipDeploy
-
-
+              appType: 'webAppLinux'
+              WebAppName: 'Python-Linux-app'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              RuntimeStack: 'DOTNETCORE|5.0'
+              StartupCommand: 'dotnet exec FakeRestAPI.Web.dll'
+              AppSettings: -WEBSITE_RUN_FROM_PACKAGE 0
+              DeploymentType: zipDeploy
