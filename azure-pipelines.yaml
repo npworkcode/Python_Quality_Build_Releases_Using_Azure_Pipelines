@@ -53,10 +53,18 @@ stages:
           steps:
           - checkout: self
 
+          - task: DownloadSecureFile@1
+            name: taskPublicKey
+            inputs:
+              secureFile: 'id_rsa.pub'
+              socketTimeout: '30000'
+              retryCount: 8
+
+
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: '$(KNOWN_HOSTS_STRING)'
-              sshPublicKey: '$(PUBLIC_KEY)'
+              sshPublicKey: '$(taskPublicKey.secureFilePath)'
               sshKeySecureFile: 'id_rsa'
             env:
               KNOWN_HOSTS_STRING: $(aps-known-host)
