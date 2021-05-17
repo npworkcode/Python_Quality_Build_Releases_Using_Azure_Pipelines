@@ -66,9 +66,10 @@ stages:
               knownHostsEntry: '$(KNOWN_HOSTS_STRING)'
               sshPublicKey: '$(taskPublicKey.secureFilePath)'
               sshKeySecureFile: 'id_rsa'
+              sshPassphrase: '$(PASS_PHRASE)'
             env:
               KNOWN_HOSTS_STRING: $(aps-known-host)
-              PUBLIC_KEY        : $(aps-tf-public-key)    
+              PASS_PHRASE        : $(aps-pass-phrase)    
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
