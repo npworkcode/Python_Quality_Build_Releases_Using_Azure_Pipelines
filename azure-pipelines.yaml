@@ -105,7 +105,7 @@ stages:
                 if [ ! -d "/var/logs"]; then
                   sudo mkdir /var/logs
                   sudo touch /var/logs/loginapp.log
-                  sudo chmod a+w /var/logs/loginapp.log
+                  sudo chmod 0766 /var/logs/loginapp.log
                   mkdir ~/scripts
                   sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
                   sudo chmod 0755 ~/scripts/login.py
