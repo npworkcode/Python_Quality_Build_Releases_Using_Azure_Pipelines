@@ -84,7 +84,7 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
-                if [ ! -d "/tmp/chromedriver"]
+                if [ ! -d "/usr/local/bin/chromedriver"]
                   a=$(uname -m)
                   mkdir /tmp/chromedriver
                   wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
