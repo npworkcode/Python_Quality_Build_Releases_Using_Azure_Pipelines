@@ -61,21 +61,17 @@ stages:
           steps:
 
 
-
-
-
-          - task: AzureRmWebAppDeployment@4
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
             inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'SPSC'
-              appType: 'webAppLinux'
-              WebAppName: 'Python-Linux-app'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              appSettings: -WEBSITE_RUN_FROM_PACKAGE 0
               deployToSlotOrASE: true
-              SlotName: 'production'
-              ResourceGroupName: 'PythonRG'
-              DeploymentType: webDeploy
-
+              resourceGroupName: 'PythonRG'
+              slotName: 'production'
+              
 
 
