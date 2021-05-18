@@ -50,17 +50,28 @@ stages:
         deploy:
           steps:
 
-            - task: AzureRmWebAppDeployment@4
-              inputs:
-                ConnectionType: 'AzureRM'
-                azureSubscription: 'SPSC'
-                appType: 'webAppLinux'
-                WebAppName: 'Python-Linux-app'
-                packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-                AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
-                deployToSlotOrASE: true
-                SlotName: 'production'
-                ResourceGroupName: 'PythonRG'
+
+          # SSH Key Needed for VM Admin tasks
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: $(KNOWN_HOSTS)
+              sshPublicKey: '$(aps-tf-public-key)'
+              sshKeySecureFile: 'id_rsa'
+            env:
+              KNOWN_HOSTS   : $(aps-known-host)
+
+
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'SPSC'
+              appType: 'webAppLinux'
+              WebAppName: 'Python-Linux-app'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              deployToSlotOrASE: true
+              SlotName: 'production'
+              ResourceGroupName: 'PythonRG'
 
 
 
