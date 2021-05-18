@@ -22,6 +22,16 @@ stages:
 
     steps:
  
+    # SSH Key Needed for VM Admin tasks
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: $(KNOWN_HOSTS)
+        sshPublicKey: '$(aps-tf-public-key)'
+        sshKeySecureFile: 'id_rsa'
+      env:
+        KNOWN_HOSTS   : $(aps-known-host)
+
+
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -51,14 +61,7 @@ stages:
           steps:
 
 
-          # SSH Key Needed for VM Admin tasks
-          - task: InstallSSHKey@0
-            inputs:
-              knownHostsEntry: $(KNOWN_HOSTS)
-              sshPublicKey: '$(aps-tf-public-key)'
-              sshKeySecureFile: 'id_rsa'
-            env:
-              KNOWN_HOSTS   : $(aps-known-host)
+
 
 
           - task: AzureRmWebAppDeployment@4
