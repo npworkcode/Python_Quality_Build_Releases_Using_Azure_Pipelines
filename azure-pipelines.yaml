@@ -50,14 +50,13 @@ stages:
         deploy:
           steps:
 
-            
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: 'QASC'
-              appType: 'webAppLinux'
-              appName: 'Python-Linux-app'
-              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              runtimeStack: 'DOTNETCORE|5.0'
-              appSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'SPSC'
+                appType: 'webAppLinux'
+                WebAppName: 'Python-Linux-app'
+                packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+                AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
 
 
