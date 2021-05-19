@@ -67,12 +67,12 @@ stages:
               ConnectionType: 'AzureRM'
               azureSubscription: 'SPSC'
               appType: 'webAppLinux'
-              WebAppName: 'Python-Linux-app'
+              WebAppName: 'python-linux-app'
               packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
               deployToSlotOrASE: true
               SlotName: 'production'
-              ResourceGroupName: 'PythonRG'
+              ResourceGroupName: 'projectrg'
               DeploymentType: webDeploy
               
 
