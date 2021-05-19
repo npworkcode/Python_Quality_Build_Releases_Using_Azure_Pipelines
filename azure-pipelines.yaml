@@ -59,6 +59,7 @@ stages:
             inputs:
               knownHostsEntry: $(KNOWN_HOSTS)
               sshPublicKey: '$(aps-tf-public-key)'
+              sshPassphrase: '$(aps-passphrase)'
               sshKeySecureFile: 'id_rsa'
             env:
               KNOWN_HOSTS   : $(aps-known-host)
