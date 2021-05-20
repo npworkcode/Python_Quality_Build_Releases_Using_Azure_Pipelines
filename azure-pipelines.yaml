@@ -78,3 +78,5 @@ stages:
               packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               RuntimeStack: 'DOTNETCORE|5.0'
               AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              enableCustomDeployment: true
+              DeploymentType: webDeploy
