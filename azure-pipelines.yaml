@@ -75,6 +75,5 @@ stages:
               ResourceGroupName: 'projectrg'
               SlotName: 'production'
               packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              RuntimeStack: 'DOTNETCORE|5.0'
-              StartupCommand: 'dotnet FakeRestAPI.Web.dll'
+              RuntimeStack: 'DOTNETCORE|3.1'
               AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
