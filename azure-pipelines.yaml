@@ -65,6 +65,7 @@ stages:
               KNOWN_HOSTS   : $(aps-known-host)
 
 
+
           - task: AzureRmWebAppDeployment@4
             inputs:
               ConnectionType: 'AzureRM'
@@ -75,5 +76,5 @@ stages:
               ResourceGroupName: 'projectrg'
               SlotName: 'production'
               packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              RuntimeStack: 'DOTNETCORE|3.1'
+              RuntimeStack: 'DOTNETCORE|5.0'
               AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
