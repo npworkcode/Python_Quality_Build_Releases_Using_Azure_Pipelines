@@ -1,0 +1,363 @@
+github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+20.96.0.171 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2edjrXF0uec2pGyUp9hwxdjkxQEiuEyXyr8kQ/XXyN
+20.96.0.171 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLG9nLKUNXBteX71jYsi6L4V1G7YU7L2+7JWNWCS6RgnwmOtAu2xDsGd1icpFklbjOiXxtaoCE++Z+yAbEKsD1Q6DEjxqGnN2PM+9xpcStI/Gw0CVZaEFtL40L+p7V6ItddXe9H1/cJ4Za1vFDBcKwa9R1dhjYrVU8vZwAj/pPuyo7YwztRANVCQyMLMyKrgemM0IAx3bhAGxRqZnc8XFm2A3QzgnOd6hS2aYmlTexeGFeCDFNyoPDsgl96ndtvRl3qeiIMyf1/XmLFu152ENWT/G6p5GBmxitwEjvrPjCmHRg2wR0JLpmPHnPv9MTTemnVMNPzuFdTKHNB4p2udlh
+20.96.0.171 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBH9huY82dPt4IpMSw+9MfrpH0dCOmdxNsplfyQGP/qq6+WwQRiLubc/o9k6csPBMyTMt+VduHOsff2K6X+HKgDw=
+20.96.11.64 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMnmoOBlBOb+ZCiYuhnfxpMSaGE95Wa34GaR3xmKMVPi
+20.96.11.64 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0REvkr7/ZP8YfHUQjGxidS04QRPzhBrkJ7My7CIGHWxwWf1DIUUhkYGxxnSk0aq36kLeozbxkpvha/sttwW4DNs2J+SX34OuHaneg2hViIDHq9ZIKbpqr2cFL2lE3THhqXA5q1DNVGHRWxAMbMXYvpphjS+fnnSmQe1F4mXox4nnT05JqUmZeqwamKITBB/rKISdAbYqNwfGCV2Sz1en1/o5/J+sC7GXygqg2oCQiYUkeilOPAwPRgGchRKgVOlA8fHo+zeEqlzo6f8RcMZwWHRL+omxXOEUmeXDhC0PoazCOF3BRpx5VEjUDppBNW7nlgp8NKBCVj/3AtihKsS8x
+20.96.11.64 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFhnusLBOBOTnNVleG8B3vXCv8ew9Lghqngti3nBWMC8anpT6vYHXn9BDEB0xC7XD23Rqlp64gVLUofSZFI8/qc=
+40.79.250.83 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtx8CPJD/YzP5RdsFLOw7z76u2NDpG8aqqmFAd3i4p6
+40.79.250.83 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNmHqv+xZ3/8f1FjsJJO3YToF0BXF69O5y/U4VbVQabDwaV8HOOWH0ACbKp0RHBhdBOjxsevU1Rl/09pRCgH9HDx6+hVQUMaOxue2DOfjKiR2brhzfwnF9hBcymmsgCoEXd7xStjvCQBvybO+KBIP/hT+B1QJzcBTWacdDGJ7Pd7dH3UCdVdjaiNxAdCQeU05L6f8zxRerselso6fQLRnq2nRNJntrJ1JXyOFtcWXhBRV+tc1IfhrTA+DdQ+FUFhyiCoWDB4QESYL+DLMbF1sTp7HVzqf/3nJLTjZtuaHStnt6oNSHDRCfym+f3j2IG7mMa9J9QAmjdPW27SN8RsOh
+40.79.250.83 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLlLZ59zMemWZEdDR19nYhCy4FkfDlirWYL0dzpq8kGMmHYQpynTI+ERSRAxyOOt3WXEcGYxvlTUczKve8LyIW0=
+ssh.dev.azure.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H
+
+
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: '$(aps-known-host)'
+              sshPublicKey: '$(PUBLIC_KEY)'
+              sshKeySecureFile: 'id_rsa'
+            env:
+              KNOWN_HOSTS_STRING : $(aps-known-host)
+              PUBLIC_KEY         : $(aps-tf-public-key)    
+
+
+- stage: Build
+
+  jobs:
+
+  - job: Build
+
+
+
+    steps:
+    # Needed for Terraform VM deployment
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/automatedtesting/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+        verbose: true
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
+
+          - checkout: self
+
+          # SSH Key Needed for VM Admin tasks
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: $(KNOWN_HOSTS)
+              sshPublicKey: '$(aps-tf-public-key)'
+              sshKeySecureFile: 'id_rsa'
+            env:
+              KNOWN_HOSTS   : $(aps-known-host)
+
+
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+   
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'QASC'
+              appName: 'Python-Linux-app'
+              appType: webAppLinux
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              appSettings: -WEBSITE_RUN_FROM_PACKAGE 0
+              deploymentMethod: zipDeploy
+
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'SPSC'
+              appType: 'webAppLinux'
+              WebAppName: 'Python-Linux-app'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              deployToSlotOrASE: true
+              SlotName: 'production'
+              ResourceGroupName: 'PythonRG'
+              DeploymentType: webDeploy
+
+
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'QASC'
+              appType: 'webAppLinux'
+              WebAppName: 'Python-Linux-app'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              RuntimeStack: 'DOTNETCORE|5.0'
+              AppSettings: -WEBSITE_RUN_FROM_PACKAGE 0
+              DeploymentType: zipDeploy
+
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'SPProject3'
+              appType: 'webAppLinux'
+              WebAppName: 'test-appservice-proj3'
+              deployToSlotOrASE: true
+              ResourceGroupName: 'azuredevopsproj3'
+              SlotName: 'production'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+       
+        
+          - task: Bash@3
+            displayName: "Install Chromedriver on VM"
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                sudo apt-get upgrade -y
+                sudo apt-get install python$(python.version)
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                if [ ! -d "/usr/local/bin/chromedriver"]; then
+                  a=$(uname -m)
+                  mkdir /tmp/chromedriver
+                  wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                  if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                  latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                  wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                  unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin 
+                  sudo chown root:root /usr/local/bin/chromedriver
+                  sudo chmod 0755 /usr/local/bin/chromedriver
+                fi
+                export PATH=$PATH:/usr/local/bin >> ~/.profile
+          - task: Bash@3
+            displayName: 'Run Selenium QA Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                if [ ! -d "/var/logs"]; then
+                  sudo mkdir /var/logs
+                  sudo touch /var/logs/loginapp.log
+                  sudo chmod 0766 /var/logs/loginapp.log
+                  mkdir ~/scripts
+                  sudo cp $(Build.SourcesDirectory)/login.py ~/scripts
+                  sudo chmod 0755 ~/scripts/login.py
+                fi
+                python3 ~/scripts/login.py
+
+        on:
+          failure:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests were not completed'
+          success:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests completed successfully'
+
+- stage: Test
+  variables:
+  - name: POSTMANSRCDIR
+    value: $(Build.SourcesDirectory)/automatedtesting/postman/
+  - name: POSTMANREPORTDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/postman/report/
+  - name: JMENDURETESTDIR
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance
+  - name: JMENDURETESTREPORTDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/endurance/report
+  - name: JMENDURETESTINDEXDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/endurance/index
+  - name: JMESTRESSTESTDIR
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress
+  - name: JMSTRESSTESTREPORTDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/report
+  - name: JMSTRESSTESTINDEXDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/index
+
+  jobs:
+
+  - job: PerformQATests
+
+    steps:
+    
+    - checkout: self
+
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+        addToPath: true
+        architecture: 'x64'
+
+    - task: CmdLine@2
+      displayName: "Install Newman Runner, HTML & HTMLExtra Reporter"
+      inputs:
+        script: |
+          sudo npm install -g newman 
+          sudo npm install -g newman-reporter-html
+          sudo npm install -g newman-reporter-htmlextra
+        workingDirectory: $(System.DefaultWorkingDirectory)
+    - task: CmdLine@2
+      displayName: "Run Postman Data Validation Tests"
+      continueOnError: true
+      inputs:
+        script: |
+          newman run $POSTMANSRCDIR\Data_Validation_Tests_Fake_API.json  \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
+            --reporters cli,html,htmlextra,junit  \
+            --reporter-html-export $POSTMANREPORTDIR/html/datavalidationhtmltests.html \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml \
+            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/datavalidationhtmlextratests.html
+        workingDirectory: '$(Build.ArtifactStagingDirectory)'
+
+    - task: PublishTestResults@2
+      displayName: "Publish Postman Data Validation Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(POSTMANREPORTDIR)/junit/datavalidationjunittests.xml'
+        searchFolder: '$(POSTMANREPORTDIR)/junit'
+        testRunTitle: 'Data Validation Tests of FAKE API'
+
+    - task: CmdLine@2
+      displayName: "Run Postman Regression Tests"
+      continueOnError: true
+      inputs:
+        script: |
+          newman run $POSTMANSRCDIR\Regression_Tests_Fake_API.json  \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
+            --reporters cli,html,htmlextra,junit  \
+            --reporter-html-export $POSTMANREPORTDIR/html/regressionhtmltests.html \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml \
+            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish Postman Regression Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(POSTMANREPORTDIR)/junit/regressionjunittests.xml'
+        searchFolder: '$(POSTMANREPORTDIR)/junit'
+        testRunTitle: 'Data Validation Tests of FAKE API'
+
+
+    - task: JMeterInstaller@0
+      displayName: "Install JMeter"
+      inputs:
+        jmeterVersion: '5.4.1'
+
+
+    - task: TaurusInstaller@0
+      displayName: "Install Taurus Tool Runner"
+      inputs:
+        taurusVersion: '1.15.2'
+        pythonCommand: 'python3'
+
+
+    - task: TaurusRunner@0
+      displayName: "Run JMeter Endurance Tests with Taurus"
+      inputs:
+        taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j endurance.log -e -o $(JMENDURETESTINDEXDIR)
+          execution:
+          - scenario:
+                script: $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx
+          
+          reporting:
+          - module: junit-xml
+            filename: $(JMENDURETESTREPORTDIR)/endurance.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: '$(JMENDURETESTREPORTDIR)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish JMeter Endurance Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(JMENDURETESTREPORTDIR)/endurance.xml'
+        searchFolder: '$(JMENDURETESTREPORTDIR)'
+        testRunTitle: 'JMeter Endurance Tests of FAKE API'
+    - task: TaurusRunner@0
+      displayName: "Run JMeter Stress Tests"
+      inputs:
+        taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j stress.log -e -o $(JMSTRESSTESTINDEXDIR)
+        
+          execution:
+          - scenario:
+                script: $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx
+          
+          
+          reporting:
+          - module: junit-xml
+            filename: $(JMSTRESSTESTREPORTDIR)/stress.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: '$(JMSTRESSTESTREPORTDIR)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish JMeter Stress Tests Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(JMSTRESSTESTREPORTDIR)/stress.xml'
+        searchFolder: '$(JMSTRESSTESTREPORTDIR)'
+        testRunTitle: 'JMeter Stress Tests of FAKE API'
+
+Hello Ladies and Gentlemen,
+
+Unfortunately, my accepted answer was wrong.
+
+I eventually figured the problem out.
+
+In Azure Pipelines when a Secret Variable is used, it is encourages that the Secret Variable is wrapped in an Environment variable for debugging purposes.
+For example a YAML line in Azure Pipelines reads:
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: $(KNOWN_HOSTS)
+              sshPublicKey: $(PUBLIC_KEY)
+              sshKeySecureFile: 'id_rsa'
+            env:
+              KNOWN_HOSTS   : $(aps-known-host)
+              PUBLIC_KEY : $(aps-tf-public-key)
+
+The public key is a secret variable and will print in any log files without the environment variable alias as ***
+However in the above code, the use of the environment variable, any log files will contain PUBLIC_KEY instead of ***
+
+Azure Pipelines does not like environment variables for the sshPublicKey value and will give the "Could not get the base64 portion of the public SSH key" error and the pipeline will fail.
+Therefore the secret variable must be used and not the environment variable. Note the KNOWN_HOSTS variable works as expected. 
+Hence the correct YAML synthax for the InstallSSHKey task is:
+
+ - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: $(KNOWN_HOSTS)
+              sshPublicKey: '$(aps-tf-public-key)'
+              sshKeySecureFile: 'id_rsa'
+            env:
+              KNOWN_HOSTS   : $(aps-known-host)
+
+Other hints:
+In windows, use git bash to get the public key value:
+clip ~/.ssh/id_rsa.pub
+This copies the contents of the public key to the clipboard.
+When you create a secret variable in the Azure Pipeline library, paste the value.
+Additionally, I always press backspace and delete the last letter of key and then retype the last letter.
+Just in case an extra newline character was inserted.
+
+I really hope the above helps and prevents hours of untold and unnecessary aggravation.
+Take care, be safe and healthy.
+
+Best Regards,
+Nigel P
+      
