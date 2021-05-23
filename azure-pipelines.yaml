@@ -63,18 +63,20 @@ stages:
               sshKeySecureFile: 'id_rsa'
             env:
               KNOWN_HOSTS   : $(aps-known-host)
+
+
+
           - task: AzureRmWebAppDeployment@4
             inputs:
               ConnectionType: 'AzureRM'
               azureSubscription: 'SPSC'
               appType: 'webAppLinux'
               WebAppName: 'python-linux-app'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
               deployToSlotOrASE: true
-              SlotName: 'production'
               ResourceGroupName: 'projectrg'
+              SlotName: 'production'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              RuntimeStack: 'DOTNETCORE|5.0'
+              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              enableCustomDeployment: true
               DeploymentType: webDeploy
-              
-
-
