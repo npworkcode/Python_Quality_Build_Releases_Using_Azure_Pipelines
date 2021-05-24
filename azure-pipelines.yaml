@@ -80,3 +80,5 @@ stages:
               AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
               enableCustomDeployment: true
               DeploymentType: webDeploy
+
+
