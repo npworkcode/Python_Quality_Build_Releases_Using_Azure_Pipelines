@@ -1,0 +1,1688 @@
+{
+	"info": {
+		"_postman_id": "f17de3be-dc43-4e8f-9b71-5d00b125b9c0",
+		"name": "Azure_FakeRESTApi_Regression_Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get - All Activities",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Activities\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - All Authors",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Authors\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - All Books",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Books\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - All Coverphotos",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Coverphotos\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - All Users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Users\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post - New Activity",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Activities\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"600\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"title\": {{activityTitle}},\r\n  \"dueDate\": {{dueDate}},\r\n  \"completed\": {{activityCompleted}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - Activity 10",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Activities\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"10\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - Change Activity 10",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Activities\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"10\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"title\": {{activityTitle}},\r\n  \"dueDate\": {{dueDate}},\r\n  \"completed\": {{activityCompleted}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete - Remove Activity 5",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Activities\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"5\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Content-Length is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Length\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post - New Author",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Authors\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"600\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"idBook\": {{id}},\r\n  \"firstName\": {{firstName}},\r\n  \"lastName\": {{lastName}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - Author(s) That Published Book 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Authors/authors/books\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"3\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - Author 1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Authors\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"1\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - Change Author 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Authors\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"3\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"idBook\": 0,\r\n  \"firstName\": {{firstName}},\r\n  \"lastName\": {{lastName}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete - Remove Author 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Authors\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"2\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Content-Length is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Length\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post - New Book",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Books\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"600\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"title\": {{bookTitle}},\r\n  \"description\": {{bookDescription}},\r\n  \"pageCount\": {{bookPageCount}},\r\n  \"excerpt\": {{bookExcerpt}},\r\n  \"publishDate\": {{dueDate}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - Book 4",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Books\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"4\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - Change Book 6",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Books\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"6\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"title\": {{bookTitle}},\r\n  \"description\": {{bookDescription}},\r\n  \"pageCount\":600,\r\n  \"excerpt\":{{bookExcerpt}},\r\n  \"publishDate\":{{dueDate}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete - Book 7",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Books\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"7\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Content-Length is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Length\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post - New CoverPhoto",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"CoverPhotos\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"600\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"idBook\": {{id}},\r\n  \"url\": {{coverPhotoURL}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - All Cover Photos for a Book 9",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"CoverPhotos/books/covers\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"9\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - Cover Photo 10",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"CoverPhotos\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"10\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - Change Cover Photo 11",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"CoverPhotos\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"11\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #3\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"idBook\": {{id}},\r\n  \"url\": {{coverPhotoURL}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete - Cover Photo 12",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"CoverPhotos\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"12\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Content-Length is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Length\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post - New User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Users\");\r",
+							"\r",
+							"pm.environment.set(\"id\", 600);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"userName\": {{userName}},\r\n  \"password\": {{userPassword}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get - User 8",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Users\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"8\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - Change User 9",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Users\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"9\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Response body is present\", function() {                             \r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Response body is a valid json\", function() {               \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// #3  \r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #4\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"userName\": {{userName}},\r\n  \"password\": {{userPassword}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete - User 10",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"service\", \"Users\");\r",
+							"\r",
+							"pm.environment.set(\"id\", \"10\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// #1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// #2\r",
+							"pm.test(\"Content-Length is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Length\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{path}}/{{service}}/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{path}}",
+						"{{service}}",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "path",
+			"value": "api/v1"
+		}
+	]
+}

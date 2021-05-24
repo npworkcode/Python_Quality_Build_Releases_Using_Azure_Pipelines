@@ -4,11 +4,81 @@
 	"values": [
 		{
 			"key": "url",
-			"value": "http://fakerestapi.azurewebsites.net",
+			"value": "https://python-linux-app.azurewebsites.net",
+			"enabled": true
+		},
+		{
+			"key": "service",
+			"value": "Activities",
+			"enabled": true
+		},
+		{
+			"key": "id",
+			"value": "600",
+			"enabled": true
+		},
+		{
+			"key": "activityTitle",
+			"value": "\"Exercise\"",
+			"enabled": true
+		},
+		{
+			"key": "dueDate",
+			"value": "\"2021-05-24T07:03:37.191Z\"",
+			"enabled": true
+		},
+		{
+			"key": "activityCompleted",
+			"value": "true",
+			"enabled": true
+		},
+		{
+			"key": "firstName",
+			"value": "\"George\"",
+			"enabled": true
+		},
+		{
+			"key": "lastName",
+			"value": "\"Washington\"",
+			"enabled": true
+		},
+		{
+			"key": "bookTitle",
+			"value": "\"This is the book title\"",
+			"enabled": true
+		},
+		{
+			"key": "bookDescription",
+			"value": "\"This is the book description\"",
+			"enabled": true
+		},
+		{
+			"key": "bookPageCount",
+			"value": "150",
+			"enabled": true
+		},
+		{
+			"key": "bookExcerpt",
+			"value": "\"This is the book excerpt\"",
+			"enabled": true
+		},
+		{
+			"key": "coverPhotoURL",
+			"value": "\"https://placeholdit.imgix.net/~text?txtsize=33&txt=Book 600&w=250&h=350\"",
+			"enabled": true
+		},
+		{
+			"key": "userName",
+			"value": "\"administrator\"",
+			"enabled": true
+		},
+		{
+			"key": "userPassword",
+			"value": "\"PassswooorD!\"",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2021-05-11T10:35:49.460Z",
-	"_postman_exported_using": "Postman/8.3.1"
+	"_postman_exported_at": "2021-05-24T16:39:07.082Z",
+	"_postman_exported_using": "Postman/8.5.1"
 }
