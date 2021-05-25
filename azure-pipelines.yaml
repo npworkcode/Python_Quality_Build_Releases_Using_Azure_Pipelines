@@ -104,7 +104,7 @@ stages:
                 if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
                 latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
                 wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
-                unzip -fo /tmp/chromedriver/chromedriver.zip chromedriver -d /home/adminuser/chromedriver 
+                unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /home/adminuser/chromedriver 
                 sudo chmod 0755 /home/adminuser/chromedriver
                 export PATH=$PATH:/home/adminuser/chromedriver >> ~/.profile
 
