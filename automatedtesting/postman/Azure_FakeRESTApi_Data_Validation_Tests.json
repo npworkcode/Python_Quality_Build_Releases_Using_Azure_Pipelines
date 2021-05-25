@@ -592,7 +592,7 @@
 							"\r",
 							"// #5\r",
 							"pm.test(\"Should include Activity 10 title\", function () {\r",
-							"    pm.expect(jsonData.title).to.include(\"Activity 10\");\r",
+							"    pm.expect(jsonData.title).to.include(\"Exercise\");\r",
 							"});\r",
 							"\r",
 							"// #6\r",
@@ -870,7 +870,7 @@
 							"        \"id\":1,\r",
 							"        \"idBook\":1,\r",
 							"        \"firstName\":\"First Name 1\",\r",
-							"        \"lastName\":\"WaLast Name 1hington\"}\r",
+							"        \"lastName\":\"Last Name 1\"}\r",
 							"    pm.expect(jsonData).to.include(expectedObject);\r",
 							"});"
 						],
