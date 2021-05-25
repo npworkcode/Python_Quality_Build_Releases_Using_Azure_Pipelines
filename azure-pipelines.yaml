@@ -97,7 +97,6 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 a=$(uname -m)
-                sudo rm -rf /tmp/chromedriver/
                 mkdir /tmp/chromedriver/
                 wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
                 if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
