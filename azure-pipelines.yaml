@@ -150,7 +150,7 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          newman run $POSTMANSRCDIR\Data_Validation_Tests_Fake_API.json  \
+          newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Data_Validation_Tests.json  \
             -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
             --reporters cli,html,htmlextra,junit  \
             --reporter-html-export $POSTMANREPORTDIR/html/datavalidationhtmltests.html \
@@ -166,12 +166,25 @@ stages:
         searchFolder: '$(POSTMANREPORTDIR)/junit'
         testRunTitle: 'Data Validation Tests of FAKE API'
 
+
+    - task: UploadPostmanHtmlReport@1
+      inputs:
+        cwd: '$POSTMANREPORTDIR/html/datavalidationhtmltests.html'
+        tabName: 'Data Validation HTML'
+
+
+    - task: UploadPostmanHtmlReport@1
+      inputs:
+        cwd: '$POSTMANREPORTDIR/htmlextra/datavalidationhtmlextratests.html'
+        tabName: 'Data Validation HTMLExtra'
+
+
     - task: CmdLine@2
       displayName: "Run Postman Regression Tests"
       continueOnError: true
       inputs:
         script: |
-          newman run $POSTMANSRCDIR\Regression_Tests_Fake_API.json  \
+          newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Regression_Tests.json  \
             -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
             --reporters cli,html,htmlextra,junit  \
             --reporter-html-export $POSTMANREPORTDIR/html/regressionhtmltests.html \
@@ -188,73 +201,15 @@ stages:
         searchFolder: '$(POSTMANREPORTDIR)/junit'
         testRunTitle: 'Data Validation Tests of FAKE API'
 
-
-    - task: JMeterInstaller@0
-      displayName: "Install JMeter"
+    - task: UploadPostmanHtmlReport@1
       inputs:
-        jmeterVersion: '5.4.1'
+        cwd: '$POSTMANREPORTDIR/html/regressionhtmltests.html'
+        tabName: 'Data Regression HTML'
 
 
-    - task: TaurusInstaller@0
-      displayName: "Install Taurus Tool Runner"
+    - task: UploadPostmanHtmlReport@1
       inputs:
-        taurusVersion: '1.15.2'
-        pythonCommand: 'python3'
+        cwd: '$POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html'
+        tabName: 'Data Regression HTMLExtra'
 
 
-    - task: TaurusRunner@0
-      displayName: "Run JMeter Endurance Tests with Taurus"
-      inputs:
-        taurusConfig: |
-          modules:
-            jmeter:
-              cmdline: -j endurance.log -e -o $(JMENDURETESTINDEXDIR)
-          execution:
-          - scenario:
-                script: $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx
-          
-          reporting:
-          - module: junit-xml
-            filename: $(JMENDURETESTREPORTDIR)/endurance.xml
-        jmeterHome: '$(JMeterInstaller.JMeterHome)'
-        jmeterPath: '$(JMeterInstaller.JMeterPath)'
-        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
-        outputDir: '$(JMENDURETESTREPORTDIR)'
-
-
-    - task: PublishTestResults@2
-      displayName: "Publish JMeter Endurance Test Results"
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '$(JMENDURETESTREPORTDIR)/endurance.xml'
-        searchFolder: '$(JMENDURETESTREPORTDIR)'
-        testRunTitle: 'JMeter Endurance Tests of FAKE API'
-    - task: TaurusRunner@0
-      displayName: "Run JMeter Stress Tests"
-      inputs:
-        taurusConfig: |
-          modules:
-            jmeter:
-              cmdline: -j stress.log -e -o $(JMSTRESSTESTINDEXDIR)
-        
-          execution:
-          - scenario:
-                script: $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx
-          
-          
-          reporting:
-          - module: junit-xml
-            filename: $(JMSTRESSTESTREPORTDIR)/stress.xml
-        jmeterHome: '$(JMeterInstaller.JMeterHome)'
-        jmeterPath: '$(JMeterInstaller.JMeterPath)'
-        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
-        outputDir: '$(JMSTRESSTESTREPORTDIR)'
-
-
-    - task: PublishTestResults@2
-      displayName: "Publish JMeter Stress Tests Results"
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '$(JMSTRESSTESTREPORTDIR)/stress.xml'
-        searchFolder: '$(JMSTRESSTESTREPORTDIR)'
-        testRunTitle: 'JMeter Stress Tests of FAKE API'
