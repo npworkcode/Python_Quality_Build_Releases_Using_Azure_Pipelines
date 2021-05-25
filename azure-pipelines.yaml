@@ -59,10 +59,11 @@ stages:
             inputs:
               knownHostsEntry: $(KNOWN_HOSTS)
               sshPublicKey: '$(aps-tf-public-key)'
-              sshPassphrase: '$(aps-passphrase)'
+              sshPassphrase: '$(PASS_PHRASE)'
               sshKeySecureFile: 'id_rsa'
             env:
               KNOWN_HOSTS   : $(aps-known-host)
+              PASS_PHRASE   : $(aps-passphrase)
 
 
 
@@ -82,3 +83,43 @@ stages:
               DeploymentType: webDeploy
 
 
+          - task: Bash@3
+            displayName: "Install Chromedriver on VM"
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+          
+                sudo apt-get upgrade -y
+                sudo apt-get install python$(python.version)
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                a=$(uname -m)
+                sudo rm -rf /tmp/chromedriver/
+                mkdir /tmp/chromedriver/
+                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                unzip -fo /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ 
+                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chmod 0755 /usr/local/bin/chromedriver
+                export PATH=$PATH:/usr/local/bin/chromedriver >> ~/.profile
+
+
+
+          - task: Bash@3
+            displayName: 'Run Selenium QA Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                mkdir /home/adminuser/logs
+                touch /home/adminuser/logs/loginapp.log
+                sudo chmod a+rw /home/adminuser/logs/loginapp.log
+                mkdir /home/adminuser/scripts
+                sudo cp $(Build.SourcesDirectory)/login.py /home/adminuser/scripts
+                sudo chmod 0755 /home/adminuser/scripts/login.py
+                python3 /home/adminuser/scripts/login.py
