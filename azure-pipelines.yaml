@@ -91,7 +91,7 @@ stages:
                 #! /bin/bash
           
                 sudo apt-get upgrade -y
-                sudo apt-get install python$(python.version)
+                sudo apt-get install python$(python.version) -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
