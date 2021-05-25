@@ -43,6 +43,7 @@ stages:
   jobs:
 
 
+
   - deployment: VMDeploy
     displayName: 'QA for Website'
     environment:
@@ -53,6 +54,7 @@ stages:
         deploy:
           steps:
 
+          - checkout: self
 
           # SSH Key Needed for VM Admin tasks
           - task: InstallSSHKey@0
