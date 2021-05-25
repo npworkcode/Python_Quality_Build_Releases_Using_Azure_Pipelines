@@ -188,3 +188,74 @@ stages:
 
 
 
+    - task: JMeterInstaller@0
+      displayName: "Install JMeter"
+      inputs:
+        jmeterVersion: '5.4.1'
+
+
+    - task: TaurusInstaller@0
+      displayName: "Install Taurus Tool Runner"
+      inputs:
+        taurusVersion: '1.15.2'
+        pythonCommand: 'python3'
+
+
+    - task: TaurusRunner@0
+      displayName: "Run JMeter Endurance Tests with Taurus"
+      inputs:
+        taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j endurance.log -e -o $(JMENDURETESTINDEXDIR)
+          execution:
+          - scenario:
+                script: $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx
+          
+          reporting:
+          - module: junit-xml
+            filename: $(JMENDURETESTREPORTDIR)/endurance.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: '$(JMENDURETESTREPORTDIR)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish JMeter Endurance Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(JMENDURETESTREPORTDIR)/endurance.xml'
+        searchFolder: '$(JMENDURETESTREPORTDIR)'
+        testRunTitle: 'JMeter Endurance Tests of FAKE API'
+    - task: TaurusRunner@0
+      displayName: "Run JMeter Stress Tests"
+      inputs:
+        taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j stress.log -e -o $(JMSTRESSTESTINDEXDIR)
+        
+          execution:
+          - scenario:
+                script: $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx
+          
+          
+          reporting:
+          - module: junit-xml
+            filename: $(JMSTRESSTESTREPORTDIR)/stress.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: '$(JMSTRESSTESTREPORTDIR)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish JMeter Stress Tests Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(JMSTRESSTESTREPORTDIR)/stress.xml'
+        searchFolder: '$(JMSTRESSTESTREPORTDIR)'
+        testRunTitle: 'JMeter Stress Tests of FAKE API'
+
+
