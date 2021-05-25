@@ -43,6 +43,7 @@ stages:
   jobs:
 
 
+
   - deployment: VMDeploy
     displayName: 'QA for Website'
     environment:
@@ -53,6 +54,7 @@ stages:
         deploy:
           steps:
 
+          - checkout: self
 
           # SSH Key Needed for VM Admin tasks
           - task: InstallSSHKey@0
@@ -66,19 +68,194 @@ stages:
 
 
 
-          - task: AzureRmWebAppDeployment@4
+
+
+
+
+          - task: Bash@3
+            displayName: "Install Chromedriver on VM & Run Selenium QA Tests"
             inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'SPSC'
-              appType: 'webAppLinux'
-              WebAppName: 'python-linux-app'
-              deployToSlotOrASE: true
-              ResourceGroupName: 'projectrg'
-              SlotName: 'production'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              RuntimeStack: 'DOTNETCORE|5.0'
-              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
-              enableCustomDeployment: true
-              DeploymentType: webDeploy
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+          
+                sudo apt-get upgrade -y
+                sudo apt-get install python$(python.version) -y
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                a=$(uname -m)
+                mkdir /tmp/chromedriver/
+                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /home/adminuser/chromedriver 
+                sudo chmod 0775 /home/adminuser/chromedriver
+                export PATH=$PATH:/home/adminuser/chromedriver >> ~/.profile
+                echo $PATH
+                mkdir /home/adminuser/logs
+                touch /home/adminuser/logs/loginapp.log
+                sudo chmod a+rw /home/adminuser/logs/loginapp.log
+                mkdir /home/adminuser/scripts
+                sudo cp $(Build.SourcesDirectory)/login.py /home/adminuser/scripts
+                sudo chmod 0775 /home/adminuser/scripts/login.py
+                python3 /home/adminuser/scripts/login.py
+
+
+- stage: Test
+  variables:
+  - name: POSTMANSRCDIR
+    value: $(Build.SourcesDirectory)/automatedtesting/postman/
+  - name: POSTMANREPORTDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/postman/report/
+  - name: JMENDURETESTDIR
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance
+  - name: JMENDURETESTREPORTDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/endurance/report
+  - name: JMENDURETESTINDEXDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/endurance/index
+  - name: JMESTRESSTESTDIR
+    value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress
+  - name: JMSTRESSTESTREPORTDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/report
+  - name: JMSTRESSTESTINDEXDIR
+    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/index
+
+  jobs:
+
+  - job: PerformQATests
+
+    steps:
+    
+    - checkout: self
+
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+        addToPath: true
+        architecture: 'x64'
+
+    - task: CmdLine@2
+      displayName: "Install Newman Runner, HTML & HTMLExtra Reporter"
+      inputs:
+        script: |
+          sudo npm install -g newman 
+          sudo npm install -g newman-reporter-html
+          sudo npm install -g newman-reporter-htmlextra
+        workingDirectory: $(System.DefaultWorkingDirectory)
+    - task: CmdLine@2
+      displayName: "Run Postman Data Validation Tests"
+      continueOnError: true
+      inputs:
+        script: |
+          newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Data_Validation_Tests.json  \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 \
+            --reporters cli,junit  \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml 
+        workingDirectory: '$(Build.ArtifactStagingDirectory)'
+
+    - task: PublishTestResults@2
+      displayName: "Publish Postman Data Validation Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(POSTMANREPORTDIR)/junit/datavalidationjunittests.xml'
+        searchFolder: '$(POSTMANREPORTDIR)/junit'
+        testRunTitle: 'Data Validation Tests of FAKE API'
+
+
+
+    - task: CmdLine@2
+      displayName: "Run Postman Regression Tests"
+      continueOnError: true
+      inputs:
+        script: |
+          newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Regression_Tests.json  \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 \
+            --reporters cli,junit  \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml 
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish Postman Regression Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(POSTMANREPORTDIR)/junit/regressionjunittests.xml'
+        searchFolder: '$(POSTMANREPORTDIR)/junit'
+        testRunTitle: 'Data Regression Tests of FAKE API'
+
+
+
+    - task: JMeterInstaller@0
+      displayName: "Install JMeter"
+      inputs:
+        jmeterVersion: '5.4.1'
+
+
+    - task: TaurusInstaller@0
+      displayName: "Install Taurus Tool Runner"
+      inputs:
+        taurusVersion: '1.15.2'
+        pythonCommand: 'python3'
+
+
+    - task: TaurusRunner@0
+      displayName: "Run JMeter Endurance Tests with Taurus"
+      inputs:
+        taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j endurance.log -e -o $(JMENDURETESTINDEXDIR)
+          execution:
+          - scenario:
+                script: $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx
+          
+          reporting:
+          - module: junit-xml
+            filename: $(JMENDURETESTREPORTDIR)/endurance.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: '$(JMENDURETESTREPORTDIR)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish JMeter Endurance Test Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(JMENDURETESTREPORTDIR)/endurance.xml'
+        searchFolder: '$(JMENDURETESTREPORTDIR)'
+        testRunTitle: 'JMeter Endurance Tests of FAKE API'
+    - task: TaurusRunner@0
+      displayName: "Run JMeter Stress Tests"
+      inputs:
+        taurusConfig: |
+          modules:
+            jmeter:
+              cmdline: -j stress.log -e -o $(JMSTRESSTESTINDEXDIR)
+        
+          execution:
+          - scenario:
+                script: $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx
+          
+          
+          reporting:
+          - module: junit-xml
+            filename: $(JMSTRESSTESTREPORTDIR)/stress.xml
+        jmeterHome: '$(JMeterInstaller.JMeterHome)'
+        jmeterPath: '$(JMeterInstaller.JMeterPath)'
+        jmeterVersion: '$(JMeterInstaller.JMeterVersion)'
+        outputDir: '$(JMSTRESSTESTREPORTDIR)'
+
+
+    - task: PublishTestResults@2
+      displayName: "Publish JMeter Stress Tests Results"
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(JMSTRESSTESTREPORTDIR)/stress.xml'
+        searchFolder: '$(JMSTRESSTESTREPORTDIR)'
+        testRunTitle: 'JMeter Stress Tests of FAKE API'
 
 
