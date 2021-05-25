@@ -105,8 +105,9 @@ stages:
                 latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
                 wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
                 unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /home/adminuser/chromedriver 
-                sudo chmod 0755 /home/adminuser/chromedriver
+                sudo chmod 0775 /home/adminuser/chromedriver
                 export PATH=$PATH:/home/adminuser/chromedriver >> ~/.profile
+                echo $PATH
 
 
 
@@ -116,10 +117,11 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
+                echo $PATH
                 mkdir /home/adminuser/logs
                 touch /home/adminuser/logs/loginapp.log
                 sudo chmod a+rw /home/adminuser/logs/loginapp.log
                 mkdir /home/adminuser/scripts
                 sudo cp $(Build.SourcesDirectory)/login.py /home/adminuser/scripts
-                sudo chmod 0755 /home/adminuser/scripts/login.py
+                sudo chmod 0775 /home/adminuser/scripts/login.py
                 python3 /home/adminuser/scripts/login.py
