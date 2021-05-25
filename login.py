@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 import logging
-logging.basicConfig(filename='/var/logs/loginapp.log', filemode='a',
+logging.basicConfig(filename='/home/adminuser/logs/loginapp.log', filemode='a',
                     level=logging.DEBUG,
                     format='%(asctime)-25s,%(name)-8s,%(levelname)-8s,%(message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p')
