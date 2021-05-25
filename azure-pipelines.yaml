@@ -69,24 +69,11 @@ stages:
 
 
 
-          - task: AzureRmWebAppDeployment@4
-            inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'SPSC'
-              appType: 'webAppLinux'
-              WebAppName: 'python-linux-app'
-              deployToSlotOrASE: true
-              ResourceGroupName: 'projectrg'
-              SlotName: 'production'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              RuntimeStack: 'DOTNETCORE|5.0'
-              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
-              enableCustomDeployment: true
-              DeploymentType: webDeploy
+
 
 
           - task: Bash@3
-            displayName: "Install Chromedriver on VM"
+            displayName: "Install Chromedriver on VM & Run Selenium QA Tests"
             inputs:
               targetType: 'inline'
               script: |
@@ -108,16 +95,6 @@ stages:
                 sudo chmod 0775 /home/adminuser/chromedriver
                 export PATH=$PATH:/home/adminuser/chromedriver >> ~/.profile
                 echo $PATH
-
-
-
-          - task: Bash@3
-            displayName: 'Run Selenium QA Tests'
-            inputs:
-              targetType: 'inline'
-              script: |
-                #! /bin/bash
-                echo $PATH
                 mkdir /home/adminuser/logs
                 touch /home/adminuser/logs/loginapp.log
                 sudo chmod a+rw /home/adminuser/logs/loginapp.log
@@ -125,3 +102,5 @@ stages:
                 sudo cp $(Build.SourcesDirectory)/login.py /home/adminuser/scripts
                 sudo chmod 0775 /home/adminuser/scripts/login.py
                 python3 /home/adminuser/scripts/login.py
+
+
