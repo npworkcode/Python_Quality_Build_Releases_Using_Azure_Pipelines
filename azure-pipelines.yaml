@@ -151,7 +151,7 @@ stages:
       inputs:
         script: |
           newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Data_Validation_Tests.json  \
-            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 \
             --reporters cli,html,htmlextra,junit  \
             --reporter-html-export $POSTMANREPORTDIR/html/datavalidationhtmltests.html \
             --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml \
@@ -169,13 +169,13 @@ stages:
 
     - task: UploadPostmanHtmlReport@1
       inputs:
-        cwd: '$POSTMANREPORTDIR/html/datavalidationhtmltests.html'
+        cwd: '$POSTMANREPORTDIR/html/'
         tabName: 'Data Validation HTML'
 
 
     - task: UploadPostmanHtmlReport@1
       inputs:
-        cwd: '$POSTMANREPORTDIR/htmlextra/datavalidationhtmlextratests.html'
+        cwd: '$POSTMANREPORTDIR/htmlextra/'
         tabName: 'Data Validation HTMLExtra'
 
 
@@ -185,7 +185,7 @@ stages:
       inputs:
         script: |
           newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Regression_Tests.json  \
-            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 --bail \
+            -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 \
             --reporters cli,html,htmlextra,junit  \
             --reporter-html-export $POSTMANREPORTDIR/html/regressionhtmltests.html \
             --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml \
@@ -203,13 +203,13 @@ stages:
 
     - task: UploadPostmanHtmlReport@1
       inputs:
-        cwd: '$POSTMANREPORTDIR/html/regressionhtmltests.html'
+        cwd: '$POSTMANREPORTDIR/html'
         tabName: 'Data Regression HTML'
 
 
     - task: UploadPostmanHtmlReport@1
       inputs:
-        cwd: '$POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html'
+        cwd: '$POSTMANREPORTDIR/htmlextra'
         tabName: 'Data Regression HTMLExtra'
 
 
