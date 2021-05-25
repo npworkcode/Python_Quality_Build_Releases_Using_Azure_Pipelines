@@ -168,12 +168,14 @@ stages:
 
 
     - task: UploadPostmanHtmlReport@1
+      displayName: 'Postman - Data Validation HTML Report'
       inputs:
         cwd: '$POSTMANREPORTDIR/html/'
         tabName: 'Data Validation HTML'
 
 
     - task: UploadPostmanHtmlReport@1
+      displayName: 'Postman - Data Validation HTML Extra Report'    
       inputs:
         cwd: '$POSTMANREPORTDIR/htmlextra/'
         tabName: 'Data Validation HTMLExtra'
@@ -202,12 +204,14 @@ stages:
         testRunTitle: 'Data Validation Tests of FAKE API'
 
     - task: UploadPostmanHtmlReport@1
+      displayName: 'Postman - Data Regression HTML Report'
       inputs:
         cwd: '$POSTMANREPORTDIR/html'
         tabName: 'Data Regression HTML'
 
 
     - task: UploadPostmanHtmlReport@1
+      displayName: 'Postman - Data Regression HTML Extra Report'
       inputs:
         cwd: '$POSTMANREPORTDIR/htmlextra'
         tabName: 'Data Regression HTMLExtra'
