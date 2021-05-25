@@ -152,10 +152,8 @@ stages:
         script: |
           newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Data_Validation_Tests.json  \
             -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 \
-            --reporters cli,html,htmlextra,junit  \
-            --reporter-html-export $POSTMANREPORTDIR/html/datavalidationhtmltests.html \
-            --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml \
-            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/datavalidationhtmlextratests.html
+            --reporters cli,junit  \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/datavalidationjunittests.xml 
         workingDirectory: '$(Build.ArtifactStagingDirectory)'
 
     - task: PublishTestResults@2
@@ -167,19 +165,6 @@ stages:
         testRunTitle: 'Data Validation Tests of FAKE API'
 
 
-    - task: UploadPostmanHtmlReport@1
-      displayName: 'Postman - Data Validation HTML Report'
-      inputs:
-        cwd: '$POSTMANREPORTDIR/html/'
-        tabName: 'Data Validation HTML'
-
-
-    - task: UploadPostmanHtmlReport@1
-      displayName: 'Postman - Data Validation HTML Extra Report'    
-      inputs:
-        cwd: '$POSTMANREPORTDIR/htmlextra/'
-        tabName: 'Data Validation HTMLExtra'
-
 
     - task: CmdLine@2
       displayName: "Run Postman Regression Tests"
@@ -188,10 +173,8 @@ stages:
         script: |
           newman run $POSTMANSRCDIR\Azure_FakeRESTApi_Regression_Tests.json  \
             -e $POSTMANSRCDIR\environment.json -n 1 --verbose --delay-request 2000 \
-            --reporters cli,html,htmlextra,junit  \
-            --reporter-html-export $POSTMANREPORTDIR/html/regressionhtmltests.html \
-            --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml \
-            --reporter-htmlextra-export $POSTMANREPORTDIR/htmlextra/regressionhtmlextratests.html
+            --reporters cli,junit  \
+            --reporter-junit-export $POSTMANREPORTDIR/junit/regressionjunittests.xml 
         workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 
@@ -201,19 +184,7 @@ stages:
         testResultsFormat: 'JUnit'
         testResultsFiles: '$(POSTMANREPORTDIR)/junit/regressionjunittests.xml'
         searchFolder: '$(POSTMANREPORTDIR)/junit'
-        testRunTitle: 'Data Validation Tests of FAKE API'
+        testRunTitle: 'Data Regression Tests of FAKE API'
 
-    - task: UploadPostmanHtmlReport@1
-      displayName: 'Postman - Data Regression HTML Report'
-      inputs:
-        cwd: '$POSTMANREPORTDIR/html'
-        tabName: 'Data Regression HTML'
-
-
-    - task: UploadPostmanHtmlReport@1
-      displayName: 'Postman - Data Regression HTML Extra Report'
-      inputs:
-        cwd: '$POSTMANREPORTDIR/htmlextra'
-        tabName: 'Data Regression HTMLExtra'
 
 
