@@ -63,7 +63,7 @@ stages:
           rm -rf *.csv stressreport/*
           echo "Running JMeter tests Now"
           apache-jmeter-5.2.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
-          -l stress.csv -e -f -o stressreport
+          -l stress.csv -e -o stressreport/
     - task: Bash@3
       displayName: JMeter Endurance Test
       inputs:
@@ -72,7 +72,7 @@ stages:
           sudo mkdir endurancereport
           rm -rf *.csv endurancereport/*
           apache-jmeter-5.2.1/bin/jmeter -n -t $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx \
-          -l EnduranceTest_Results.csv -e -f -o endurancereport
+          -l end.csv -e -o endurancereport/
 
 
 
