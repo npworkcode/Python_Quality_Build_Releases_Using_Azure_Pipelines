@@ -46,11 +46,11 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          sudo apt-get install openjdk-11-jre-headless -y
+          sudo apt-get install openjdk-16-jre-headless -y
           java -version
-          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.2.1.tgz -O jmeter.tgz
-          tar xzvf jmeter.tgz
-          apache-jmeter-5.2.1/bin/jmeter --version
+          wget https://mirrors.gigenet.com/apache//jmeter/binaries/apache-jmeter-5.4.1.tgz -O jmeter.tgz
+          tar xzvf apache-jmeter-5.4.1.tgz
+          apache-jmeter-5.4.1/bin/jmeter --version
           pwd
           ls -la
     - task: Bash@3
@@ -64,6 +64,7 @@ stages:
           echo "Running JMeter tests Now"
           apache-jmeter-5.2.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
           -l stress.csv -e -o stressreport/
+          mv stress.csv stressreport
           pwd
           ls -la
 
@@ -77,7 +78,7 @@ stages:
         verbose: true
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-stressreport.zip
       displayName: 'Upload Stress Report Zip'
-      artifact: stress-report
+      artifact: stressreport
 
 
 
