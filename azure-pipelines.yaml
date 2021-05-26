@@ -65,7 +65,7 @@ stages:
           apache-jmeter-5.2.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
           -l stress.csv -e -o stressreport/
           pwd
-          ls
+          ls -la
 
     - task: ArchiveFiles@2
       displayName: 'Archive Stress Report'
