@@ -58,7 +58,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          sudo mkdir stressreport
+          mkdir stressreport
           echo stressreport
           rm -rf *.csv stressreport/*
           echo "Running JMeter tests Now"
