@@ -22,16 +22,9 @@ stages:
     value: $(Build.ArtifactStagingDirectory)/automatedtesting/postman/report/
   - name: JMENDURETESTDIR
     value: $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance
-  - name: JMENDURETESTREPORTDIR
-    value: $(Build.ArtifactStagingDirectory)/endurancereport
-  - name: JMENDURETESTINDEXDIR
-    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/endurance/index
   - name: JMESTRESSTESTDIR
     value: $(Build.SourcesDirectory)/automatedtesting/jmeter/stress
-  - name: JMSTRESSTESTREPORTDIR
-    value: $(Build.ArtifactStagingDirectory)/stressreport
-  - name: JMSTRESSTESTINDEXDIR
-    value: $(Build.ArtifactStagingDirectory)/automatedtesting/jmeter/stress/index
+
 
   jobs:
 
@@ -46,7 +39,6 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          # sudo apt-get install openjdk-16-jre-headless -y
           java -version
           wget https://mirrors.gigenet.com/apache//jmeter/binaries/apache-jmeter-5.4.1.tgz -O jmeter.tgz
           tar xzvf jmeter.tgz
@@ -54,14 +46,14 @@ stages:
           pwd
           ls -la
     - task: Bash@3
-      displayName: JMeter Stress Test
+      displayName: JMeter Stress Tests for FakeRESTApi website
       inputs:
         targetType: 'inline'
         script: |
           mkdir stressreport
-          echo "Made the directory stressreport"
+          echo "Made the directory for the Stress Test results - stressreport"
           rm -rf *.csv stressreport/*
-          echo "Running JMeter tests Now"
+          echo "Running JMeter Stress tests Now"
           apache-jmeter-5.4.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
           -l stress.csv -e -o stressreport/
           mv stress.csv stressreport
@@ -81,6 +73,32 @@ stages:
       artifact: stressreport
 
 
+    - task: Bash@3
+      displayName: JMeter Endurance Tests for FakeRESTAPI website
+      inputs:
+        targetType: 'inline'
+        script: |
+          mkdir endurereport
+          echo "Made the directory for the Endurance Test results - endurereport"
+          rm -rf *.csv endurereport/*
+          echo "Running JMeter Endurance tests Now"
+          apache-jmeter-5.4.1/bin/jmeter -n -t $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx \
+          -l endure.jtl -e -o endurereport/
+          mv endure.jtl endurereport
+          pwd
+          ls -la
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive Stress Report'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/endurereport'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-endurereport.zip'
+        verbose: true
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-endurereport.zip
+      displayName: 'Upload Endurance Tests Report Zip'
+      artifact: endurancereport
 
 
 
