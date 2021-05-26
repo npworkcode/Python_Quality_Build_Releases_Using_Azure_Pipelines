@@ -65,51 +65,20 @@ ssh.dev.azure.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4Nak
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
    
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'QASC'
-              appName: 'Python-Linux-app'
-              appType: webAppLinux
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-              appSettings: -WEBSITE_RUN_FROM_PACKAGE 0
-              deploymentMethod: zipDeploy
-
           - task: AzureRmWebAppDeployment@4
             inputs:
               ConnectionType: 'AzureRM'
               azureSubscription: 'SPSC'
               appType: 'webAppLinux'
-              WebAppName: 'Python-Linux-app'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              WebAppName: 'python-linux-app'
               deployToSlotOrASE: true
+              ResourceGroupName: 'projectrg'
               SlotName: 'production'
-              ResourceGroupName: 'PythonRG'
-              DeploymentType: webDeploy
-
-
-          - task: AzureRmWebAppDeployment@4
-            inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'QASC'
-              appType: 'webAppLinux'
-              WebAppName: 'Python-Linux-app'
               packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               RuntimeStack: 'DOTNETCORE|5.0'
-              AppSettings: -WEBSITE_RUN_FROM_PACKAGE 0
-              DeploymentType: zipDeploy
-
-          - task: AzureRmWebAppDeployment@4
-            inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'SPProject3'
-              appType: 'webAppLinux'
-              WebAppName: 'test-appservice-proj3'
-              deployToSlotOrASE: true
-              ResourceGroupName: 'azuredevopsproj3'
-              SlotName: 'production'
-              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              enableCustomDeployment: true
+              DeploymentType: webDeploy
        
         
           - task: Bash@3
@@ -360,4 +329,125 @@ Take care, be safe and healthy.
 
 Best Regards,
 Nigel P
-      
+
+
+
+
+
+- stage: Build
+
+  jobs:
+
+  - job: Build
+
+
+
+    steps:
+ 
+
+
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/automatedtesting/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+        verbose: true
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
+
+
+- stage: Deploy
+
+  jobs:
+
+
+
+  - deployment: VMDeploy
+    displayName: 'QA for Website'
+    environment:
+      name: 'QA'
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - checkout: self
+
+          # SSH Key Needed for VM Admin tasks
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: $(KNOWN_HOSTS)
+              sshPublicKey: '$(aps-tf-public-key)'
+              sshPassphrase: '$(aps-passphrase)'
+              sshKeySecureFile: 'id_rsa'
+            env:
+              KNOWN_HOSTS   : $(aps-known-host)
+
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'SPSC'
+              appType: 'webAppLinux'
+              WebAppName: 'python-linux-app'
+              deployToSlotOrASE: true
+              ResourceGroupName: 'projectrg'
+              SlotName: 'production'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              RuntimeStack: 'DOTNETCORE|5.0'
+              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              enableCustomDeployment: true
+              DeploymentType: webDeploy
+
+
+          - task: Bash@3
+            displayName: "Install Chromedriver on VM"
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+          
+                sudo apt-get upgrade -y
+                sudo apt-get install python$(python.version) -y
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                a=$(uname -m)
+                mkdir /tmp/chromedriver/
+                wget -O /tmp/chromedriver/LATEST_RELEASE https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+                if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi 
+                latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+                wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
+                unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /home/adminuser/chromedriver 
+                sudo chmod 0775 /home/adminuser/chromedriver
+
+
+          - task: Bash@3
+            displayName: 'Run Selenium QA Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                export PATH=$PATH:/home/adminuser/chromedriver >> ~/.profile
+                echo $PATH
+                mkdir /home/adminuser/logs
+                touch /home/adminuser/logs/loginapp.log
+                sudo chmod a+rw /home/adminuser/logs/loginapp.log
+                mkdir /home/adminuser/scripts
+                sudo cp $(Build.SourcesDirectory)/login.py /home/adminuser/scripts
+                sudo chmod 0775 /home/adminuser/scripts/login.py
+                python3 /home/adminuser/scripts/login.py
+
+
+        on:
+          failure:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests were not completed'
+          success:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests completed successfully'
