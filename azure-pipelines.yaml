@@ -46,10 +46,10 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          sudo apt-get install openjdk-16-jre-headless -y
+          # sudo apt-get install openjdk-16-jre-headless -y
           java -version
           wget https://mirrors.gigenet.com/apache//jmeter/binaries/apache-jmeter-5.4.1.tgz -O jmeter.tgz
-          tar xzvf apache-jmeter-5.4.1.tgz
+          tar xzvf jmeter.tgz
           apache-jmeter-5.4.1/bin/jmeter --version
           pwd
           ls -la
@@ -62,7 +62,7 @@ stages:
           echo "Made the directory stressreport"
           rm -rf *.csv stressreport/*
           echo "Running JMeter tests Now"
-          apache-jmeter-5.2.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
+          apache-jmeter-5.4.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
           -l stress.csv -e -o stressreport/
           mv stress.csv stressreport
           pwd
