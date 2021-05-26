@@ -59,7 +59,7 @@ stages:
         targetType: 'inline'
         script: |
           mkdir stressreport
-          echo stressreport
+          echo "Made the directory stressreport"
           rm -rf *.csv stressreport/*
           echo "Running JMeter tests Now"
           apache-jmeter-5.2.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
