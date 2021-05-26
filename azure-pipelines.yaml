@@ -64,15 +64,19 @@ stages:
           echo "Running JMeter tests Now"
           apache-jmeter-5.2.1/bin/jmeter -n -t $(JMESTRESSTESTDIR)/Project_3-Stress-Test_Plan.jmx \
           -l stress.csv -e -o stressreport/
-    - task: Bash@3
-      displayName: JMeter Endurance Test
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive Stress Report'
       inputs:
-        targetType: 'inline'
-        script: |
-          sudo mkdir endurancereport
-          rm -rf *.csv endurancereport/*
-          apache-jmeter-5.2.1/bin/jmeter -n -t $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx \
-          -l end.csv -e -o endurancereport/
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/stressreport/**'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-stressreport.zip'
+        verbose: true
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-stressreport.zip
+      displayName: 'Upload Stress Report Zip'
+      artifact: stress-report
+
 
 
 
