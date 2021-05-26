@@ -66,14 +66,24 @@ stages:
             env:
               KNOWN_HOSTS   : $(aps-known-host)
 
-
-
-
-
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'SPSC'
+              appType: 'webAppLinux'
+              WebAppName: 'python-linux-app'
+              deployToSlotOrASE: true
+              ResourceGroupName: 'projectrg'
+              SlotName: 'production'
+              packageForLinux: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              RuntimeStack: 'DOTNETCORE|5.0'
+              AppSettings: '-WEBSITE_RUN_FROM_PACKAGE 0'
+              enableCustomDeployment: true
+              DeploymentType: webDeploy
 
 
           - task: Bash@3
-            displayName: "Install Chromedriver on VM & Run Selenium QA Tests"
+            displayName: "Install Chromedriver on VM"
             inputs:
               targetType: 'inline'
               script: |
@@ -93,6 +103,14 @@ stages:
                 wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' 
                 unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /home/adminuser/chromedriver 
                 sudo chmod 0775 /home/adminuser/chromedriver
+
+
+          - task: Bash@3
+            displayName: 'Run Selenium QA Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
                 export PATH=$PATH:/home/adminuser/chromedriver >> ~/.profile
                 echo $PATH
                 mkdir /home/adminuser/logs
@@ -102,6 +120,15 @@ stages:
                 sudo cp $(Build.SourcesDirectory)/login.py /home/adminuser/scripts
                 sudo chmod 0775 /home/adminuser/scripts/login.py
                 python3 /home/adminuser/scripts/login.py
+
+
+        on:
+          failure:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests were not completed'
+          success:
+            steps:
+            - script: echo 'Deployment of WebApp & Selenium QA Tests completed successfully'
 
 
 - stage: Test
