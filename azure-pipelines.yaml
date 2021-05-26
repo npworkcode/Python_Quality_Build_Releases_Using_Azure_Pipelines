@@ -70,7 +70,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive Stress Report'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/stressreport/**'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/stressreport'
         includeRootFolder: true
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-stressreport.zip'
