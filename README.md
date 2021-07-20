@@ -5,7 +5,7 @@ Use Azure Pipelines to build releases of a python app to a linux vm and run test
 ![Quality Build Releases Architecture Diagram](/images/project3_architectural_diagram.jpg)
 
 # Create Project Artifacts using Terraform
-https://github.com/npworkcode/Terraform_Deployment_Using_Azure_Pipelines/blob/main/azure-pipelines.yml
+https://github.com/npworkcode/Terraform_Deployment_Using_Azure_Pipelines
 
 # Execute Selenium Test Suite on Deployed VM and generate Log Files
 ![Selenium UI Tests](/images/01-execution_of_selenium_test_suite_on_vm.jpg)
