@@ -583,3 +583,13 @@ Nigel P
         testRunTitle: 'JMeter Stress Tests of FAKE API'
 
 
+
+    - task: Bash@3
+      displayName: JMeter Endurance Test
+      inputs:
+        targetType: 'inline'
+        script: |
+          sudo mkdir endurancereport
+          rm -rf *.csv endurancereport/*
+          apache-jmeter-5.2.1/bin/jmeter -n -t $(JMENDURETESTDIR)/Project_3-Endurance-Test_Plan.jmx \
+          -l end.csv -e -o endurancereport/
